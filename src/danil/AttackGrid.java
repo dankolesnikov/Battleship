@@ -39,6 +39,8 @@ public class AttackGrid extends BattleGrid {
 
                 if(name.equals("Player1")){
                     BattleShip.player1Data.setAttackData(x,y);
+                    Coordinate hit = new Coordinate(x,y);
+                    BattleShip.player2Data.attackShip(hit);
                     System.out.print("\nPlayer1: Set attackData array to 1 at    (X: "+x+" Y: "+y+")");
                     boolean success = BattleShip.player2Data.isHit(x,y);
                     if(success){
@@ -56,6 +58,8 @@ public class AttackGrid extends BattleGrid {
                 }
                 if(name.equals("Player2")){
                     BattleShip.player2Data.setAttackData(x,y);
+                    Coordinate hit = new Coordinate(x,y);
+                    BattleShip.player1Data.attackShip(hit);
                     boolean success = BattleShip.player1Data.isHit(x,y);
                     if(success){
                         panel.setBackground(Color.GREEN);

@@ -1,6 +1,10 @@
 package danil;
 
+import javax.swing.text.html.HTMLDocument;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  * Created by danil on 10/22/17.
@@ -12,9 +16,42 @@ public class PlayerData {
      int count=0;
 
 
+    ArrayList<Ship> fleet = new ArrayList<>();
+
+    public void attackShip(Coordinate hitCord) {
+        Iterator itr = fleet.iterator();
+        while (itr.hasNext()){
+            Ship temp = (Ship)itr.next();
+            temp.isHit(hitCord);
+
+            if(temp.isShipSunk()){
+                itr.remove();
+             System.out.println("Ship is sunk");
+                System.out.println(fleet.size() + " more ship to go");
+            }
+
+        }
+
+    }
+    public void addShip(Coordinate a,Coordinate b,Coordinate c){
+        fleet.add(new Ship(a,b,c));
+
+    }
+
+    public void printFleet(){
+        Iterator itr = fleet.iterator();
+        while (itr.hasNext()){
+            Ship temp = (Ship)itr.next();
+            System.out.println(temp.printShip());
+        }
+        System.out.println("B********"+fleet.size()+"*********E\n");
+       // System.out.print("B*********"+ "Fleet: \n"+s + "*********E\n");
+    }
+
 
     public void setAttackData(int x, int y) {
         attackData[x][y] = 1;
+
     }
 
 
@@ -48,6 +85,8 @@ public class PlayerData {
         }
 
     }
+
+
 
     public void printSelfData(){
         for (int i = 1; i < selfData.length; i++) {

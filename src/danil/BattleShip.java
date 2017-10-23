@@ -27,6 +27,7 @@ public class BattleShip implements GameState {
         game.player2turn();
         game.player1Turn();
         game.player2turn();
+
     }
 
     public void player1Turn (){

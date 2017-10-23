@@ -49,24 +49,29 @@ public class SelfGrid extends BattleGrid {
             @Override
             public void mouseClicked(MouseEvent e) {
 
-                Point i = firstCell.getLocation();
-                double xPos = (i.getX()/20+1);
+                Point firstPoint = firstCell.getLocation();
+                double xPos = (firstPoint.getX()/20+1);
                 int x = (int) xPos;
-                double yPos = (i.getY()/20+1);
+                double yPos = (firstPoint.getY()/20+1);
                 int y = (int) yPos;
 
-                double xPos2 = (i.getX()/20+2);
+                double xPos2 = (firstPoint.getX()/20+2);
                 int x2 = (int) xPos2;
-                double yPos2 = (i.getY()/20+1);
+                double yPos2 = (firstPoint.getY()/20+1);
                 int y2 = (int) yPos2;
 
-                double xPos3 = (i.getX()/20+3);
+                double xPos3 = (firstPoint.getX()/20+3);
                 int x3 = (int) xPos3;
-                double yPos3 = (i.getY()/20+1);
+                double yPos3 = (firstPoint.getY()/20+1);
                 int y3 = (int) yPos3;
 
-                secondNextPoint = new Point((int)(i.getX()+20),(int)(i.getY()));
-                thirdNextPoint = new Point((int)(i.getX()+40),(int)(i.getY()));
+                secondNextPoint = new Point((int)(firstPoint.getX()+20),(int)(firstPoint.getY()));
+                thirdNextPoint = new Point((int)(firstPoint.getX()+40),(int)(firstPoint.getY()));
+                Coordinate a = new Coordinate(x,y);
+                Coordinate b = new Coordinate(x2,y2);
+                Coordinate c = new Coordinate(x3,y3);
+
+
                 getComp2(secondNextPoint);
                 getComp3(thirdNextPoint);
 
@@ -81,6 +86,9 @@ public class SelfGrid extends BattleGrid {
                         BattleShip.player1Data.setSelfData(x2,y2);
                         BattleShip.player1Data.setSelfData(x3,y3);
 
+                        BattleShip.player1Data.addShip(a,b,c);
+                        BattleShip.player1Data.printFleet();
+
                     }
                     if(name.equals("Player2")){
                         System.out.print("\nPlayer2: selfData array to 1 at  (X: "+x+" Y: "+y+")");
@@ -89,12 +97,18 @@ public class SelfGrid extends BattleGrid {
                         BattleShip.player2Data.setSelfData(x,y);
                         BattleShip.player2Data.setSelfData(x2,y2);
                         BattleShip.player2Data.setSelfData(x3,y3);
+
+                        BattleShip.player2Data.addShip(a,b,c);
+                        BattleShip.player2Data.printFleet();
+
+
                     }
                     count++;
                     firstCell.setBackground(Color.CYAN);
                     secondNextCell.setBackground(Color.CYAN);
                     thirdNextCell.setBackground(Color.CYAN);
                 }
+
             }
         });
         return firstCell;

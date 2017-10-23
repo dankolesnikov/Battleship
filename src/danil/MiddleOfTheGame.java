@@ -4,12 +4,17 @@ public class MiddleOfTheGame implements GameState{
     private BattleShip battleShip;
 
     MiddleOfTheGame(BattleShip battleShip){
+       // BattleShip.player2Data.addShip();
+        //BattleShip.player1Data.addShip();
         this.battleShip = battleShip;
     }
 
     public void player1Turn (){
         System.out.println("middle of the game player 1 ");
         System.out.println("if player 1 win, switch to end of the game ");
+      //  BattleShip.player2Data.printFleet();
+       // BattleShip.player1Data.printFleet();
+
         //if statement to switch
         //battleShip.setState(battleShip.getEndOfTheGame());
 
