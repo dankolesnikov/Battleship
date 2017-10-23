@@ -5,6 +5,7 @@ public class BattleShip implements GameState {
     private GameState middleOfTheGame;
     private GameState endOfTheGame;
     private GameState state;
+
     static PlayerData player1Data = new PlayerData();
     static PlayerData player2Data = new PlayerData();
     PlayerScreen player1 = new PlayerScreen("Player1", true);
