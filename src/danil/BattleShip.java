@@ -9,11 +9,12 @@ public class BattleShip {
 
     static PlayerData player1Data = new PlayerData();
     static PlayerData player2Data = new PlayerData();
+    static PlayerScreen player1 = new PlayerScreen("Player1", true);
+    static PlayerScreen player2 = new PlayerScreen("Player2", true);
 
     public static void main(String[] args) {
 
-        PlayerScreen player1 = new PlayerScreen("Player1", true);
-        PlayerScreen player2 = new PlayerScreen("Player2", true);
+
 
         BattleShip b1 = new BattleShip(new BeginningOfTheGame());
         b1.nextState(player1,player2,player1Data,player2Data);

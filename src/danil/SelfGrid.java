@@ -65,15 +65,6 @@ public class SelfGrid extends BattleGrid {
                 int x3 = (int) xPos3;
                 double yPos3 = (i.getY()/20+1);
                 int y3 = (int) yPos3;
-//                if(name.equals("Player1")){
-//                    System.out.print("\nPlayer1: selfData array to 1 at  (X: "+x+" Y: "+y+")");
-//                    BattleShip.player1Data.setSelfData(x,y); // But which player?
-//                }
-//                if(name=="Player2"){
-//                    System.out.print("\nPlayer2: Set selfData array to 1 at  (X: "+x+" Y: "+y+")");
-//                    BattleShip.player2Data.setSelfData(x,y); // But which player?
-//
-//                }
 
                 secondNextPoint = new Point((int)(i.getX()+20),(int)(i.getY()));
                 thirdNextPoint = new Point((int)(i.getX()+40),(int)(i.getY()));
@@ -83,20 +74,21 @@ public class SelfGrid extends BattleGrid {
                 if(secondNextCell != null && thirdNextCell != null && !secondNextCell.getBackground().equals(Color.CYAN)
                         && !thirdNextCell.getBackground().equals(Color.CYAN) && count < NUMBER_OF_SHIP) {
                     if(name.equals("Player1")){
+                        System.out.print("\n***"+name+"***");
                         System.out.print("\nPlayer1: selfData array to 1 at  (X: "+x+" Y: "+y+")");
                         System.out.print("\nPlayer1: selfData array to 1 at  (X: "+x2+" Y: "+y2+")");
                         System.out.print("\nPlayer1: selfData array to 1 at  (X: "+x3+" Y: "+y3+")");
-                        BattleShip.player1Data.setSelfData(x,y); // But which player?
-                        BattleShip.player1Data.setSelfData(x2,y2); // But which player?
-                        BattleShip.player1Data.setSelfData(x3,y3); // But which player?
-
+                        BattleShip.player1Data.setSelfData(x,y);
+                        BattleShip.player1Data.setSelfData(x2,y2);
+                        BattleShip.player1Data.setSelfData(x3,y3);
                     }
-                    if(name=="Player2"){
+                    if(name.equals("Player2")){
                         System.out.print("\nPlayer2: selfData array to 1 at  (X: "+x+" Y: "+y+")");
                         System.out.print("\nPlayer2: selfData array to 1 at  (X: "+x2+" Y: "+y2+")");
-                        System.out.print("\nPlayer2: selfData array to 1 at  (X: "+x3+" Y: "+y3+")");                        BattleShip.player2Data.setSelfData(x,y); // But which player?
-                        BattleShip.player2Data.setSelfData(x2,y2); // But which player?
-                        BattleShip.player2Data.setSelfData(x3,y3); // But which player?
+                        System.out.print("\nPlayer2: selfData array to 1 at  (X: "+x3+" Y: "+y3+")");
+                        BattleShip.player2Data.setSelfData(x,y);
+                        BattleShip.player2Data.setSelfData(x2,y2);
+                        BattleShip.player2Data.setSelfData(x3,y3);
                     }
                     count++;
                     firstCell.setBackground(Color.CYAN);
