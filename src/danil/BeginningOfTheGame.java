@@ -1,8 +1,20 @@
 package danil;
 
 public class BeginningOfTheGame implements GameState {
-    public void nextState (BattleShip context,PlayerScreen player1, PlayerScreen player2, PlayerData player1Data,PlayerData player2Data){
-        System.out.print("inside beginningOfTheGame class");
+    private BattleShip battleShip;
+
+    BeginningOfTheGame(BattleShip battleShip){
+        this.battleShip = battleShip;
+    }
+
+    public void player1Turn (){
+        System.out.println("Begginng of the Game for player 1");
+
+    }
+    public void player2turn (){
+        System.out.println("Begginng of the Game for player 2");
+        battleShip.setState(battleShip.getMiddleOfTheGame());
+
 
     }
 
