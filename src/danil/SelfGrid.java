@@ -78,9 +78,9 @@ public class SelfGrid extends BattleGrid {
                         System.out.print("\nPlayer1: selfData array to 1 at  (X: "+x+" Y: "+y+")");
                         System.out.print("\nPlayer1: selfData array to 1 at  (X: "+x2+" Y: "+y2+")");
                         System.out.print("\nPlayer1: selfData array to 1 at  (X: "+x3+" Y: "+y3+")");
-                        BattleShip.player1Data.setSelfData(x,y);
-                        BattleShip.player1Data.setSelfData(x2,y2);
-                        BattleShip.player1Data.setSelfData(x3,y3);
+                      //  BattleShip.player1Data.setSelfData(x,y);
+                       // BattleShip.player1Data.setSelfData(x2,y2);
+                       // BattleShip.player1Data.setSelfData(x3,y3);
                     }
                     if(name.equals("Player2")){
                         System.out.print("\nPlayer2: selfData array to 1 at  (X: "+x+" Y: "+y+")");
@@ -89,6 +89,10 @@ public class SelfGrid extends BattleGrid {
                         BattleShip.player2Data.setSelfData(x,y);
                         BattleShip.player2Data.setSelfData(x2,y2);
                         BattleShip.player2Data.setSelfData(x3,y3);
+                        System.out.print("\nPlayer 1 SelfData:\n");
+                        BattleShip.player1Data.printSelfData();
+                        System.out.print("\nPlayer 2 SelfData:\n");
+                        BattleShip.player2Data.printSelfData();
                     }
                     count++;
                     firstCell.setBackground(Color.CYAN);

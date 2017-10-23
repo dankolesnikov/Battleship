@@ -7,17 +7,17 @@ import java.util.Arrays;
  */
 
 public class PlayerData {
-    static int[][] attackData = new int[11][11];
-    static int[][] selfData = new int[11][11];
-    static int count=0;
+     int[][] attackData = new int[11][11];
+     int[][] selfData = new int[11][11];
+     int count=0;
 
-    public static void setAttackData(int x, int y){
+    public void setAttackData(int x, int y){
             attackData[x][y]=1;
     }
 
 
 
-    public static void setSelfData(int x, int y){
+    public void setSelfData(int x, int y){
         if(selfData[x][y]==1){
             System.out.print("Overlap");
         }
@@ -26,7 +26,7 @@ public class PlayerData {
         }
     }
 
-    public static boolean isHit(int x, int y){
+    public boolean isHit(int x, int y){
 
         if(selfData[x][y]==1){
             count++;
@@ -37,7 +37,7 @@ public class PlayerData {
         }
     }
 
-    public static boolean isLoser(){
+    public boolean isLoser(){
         if(count>=15){
             return true;
         }
@@ -47,7 +47,7 @@ public class PlayerData {
 
     }
 
-    public static void printSelfData(){
+    public void printSelfData(){
         for (int i = 1; i < selfData.length; i++) {
             for (int j = 1; j < selfData[i].length; j++) {
                 System.out.print(selfData[j][i] + " ");
@@ -55,7 +55,7 @@ public class PlayerData {
             System.out.println();
         }
     }
-    public static void printAttackData(){
+    public void printAttackData(){
         for (int i = 1; i < attackData.length; i++) {
             for (int j = 1; j < attackData[i].length; j++) {
                 System.out.print(attackData[j][i] + " ");
