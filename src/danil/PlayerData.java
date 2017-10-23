@@ -26,7 +26,7 @@ public class PlayerData {
 
             if(temp.isShipSunk()){
                 itr.remove();
-             System.out.println("Ship is sunk");
+                System.out.println("Ship is sunk");
                 System.out.println(fleet.size() + " more ship to go");
             }
 
@@ -44,8 +44,6 @@ public class PlayerData {
             Ship temp = (Ship)itr.next();
             System.out.println(temp.printShip());
         }
-        System.out.println("B********"+fleet.size()+"*********E\n");
-       // System.out.print("B*********"+ "Fleet: \n"+s + "*********E\n");
     }
 
 

@@ -8,14 +8,14 @@ public class BattleShip implements GameState {
 
     static PlayerData player1Data = new PlayerData();
     static PlayerData player2Data = new PlayerData();
+    static PlayerScreen player1 = new PlayerScreen("Player1", true);
+    static PlayerScreen player2 = new PlayerScreen("Player2", false);
 
-    PlayerScreen player1 = new PlayerScreen("Player1", true);
-    PlayerScreen player2 = new PlayerScreen("Player2", true);
-
-    private BattleShip(){
+    private BattleShip() {
         beginningOfTheGame = new BeginningOfTheGame(this);
         middleOfTheGame = new MiddleOfTheGame(this);
         endOfTheGame = new EndOFTheGame(this);
+
         this.state = beginningOfTheGame;
     }
 
@@ -30,23 +30,27 @@ public class BattleShip implements GameState {
 
     }
 
-    public void player1Turn (){
+    public void player1Turn() {
         state.player1Turn();
 
     }
-    public void player2turn (){
+
+    public void player2turn() {
         state.player2turn();
     }
 
-    public void setBeginningOfTheGame(GameState beginningOfTheGame){
+    public void setBeginningOfTheGame(GameState beginningOfTheGame) {
         this.beginningOfTheGame = beginningOfTheGame;
     }
-    public GameState getBeginningOfTheGame (){
+
+    public GameState getBeginningOfTheGame() {
         return beginningOfTheGame;
     }
-    public void setMiddleOfTheGame(GameState middleOfTheGame){
+
+    public void setMiddleOfTheGame(GameState middleOfTheGame) {
         this.middleOfTheGame = middleOfTheGame;
     }
+
     public GameState getMiddleOfTheGame() {
         return middleOfTheGame;
     }
@@ -54,15 +58,25 @@ public class BattleShip implements GameState {
     public void setEndOfTheGame(GameState endOfTheGame) {
         this.endOfTheGame = endOfTheGame;
     }
+
     public GameState getEndOfTheGame() {
         return endOfTheGame;
     }
 
-    public void setState(GameState state){
+    public void setState(GameState state) {
         this.state = state;
     }
-    public GameState getState(){
+
+    public GameState getState() {
         return this.state;
     }
 
+
+    static public PlayerScreen getPlayer1() {
+        return player1;
+    }
+
+    static public PlayerScreen getPlayer2() {
+        return player2;
+    }
 }
