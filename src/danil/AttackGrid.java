@@ -8,15 +8,15 @@ import java.net.*;
 import danil.BattleShip;
 
 /**
-Represents the player's own grid
-*/
+ Represents the player's own grid
+ */
 public class AttackGrid extends BattleGrid {
     private String name;
 
     public AttackGrid(String name) {
         super();
         this.name = name;
-        
+
     }
 
     @Override
@@ -36,8 +36,7 @@ public class AttackGrid extends BattleGrid {
                 int x = (int) xPos;
                 double yPos = (i.getY()/20+1);
                 int y = (int) yPos;
-                //String lol = BattleShip.player1.getTitle();
-               // System.out.print("***"+name+"***");
+
                 if(name.equals("Player1")){
                     BattleShip.player1Data.setAttackData(x,y);
                     System.out.print("\nPlayer1: Set attackData array to 1 at    (X: "+x+" Y: "+y+")");
@@ -57,13 +56,6 @@ public class AttackGrid extends BattleGrid {
                 }
                 if(name.equals("Player2")){
                     BattleShip.player2Data.setAttackData(x,y);
-                    System.out.print("\nPlayer2: Set attackData array to 1 at    (X: "+x+" Y: "+y+")");
-                    System.out.print("\nPlayer 1 SelfData:\n");
-                    BattleShip.player1Data.printSelfData();
-                    System.out.print("\nPlayer 2 SelfData:\n");
-                    BattleShip.player2Data.printSelfData();
-                    System.out.print("\nPlayer 2 Attack Data:\n");
-                    BattleShip.player2Data.printAttackData();
                     boolean success = BattleShip.player1Data.isHit(x,y);
                     if(success){
                         panel.setBackground(Color.GREEN);
