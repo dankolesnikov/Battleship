@@ -12,11 +12,21 @@ import danil.BattleShip;
  */
 public class AttackGrid extends BattleGrid {
     private String name;
+    private String typeGrid = "AttackGrid";
 
     public AttackGrid(String name) {
         super();
         this.name = name;
 
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public String getTypeGrid() {
+        return typeGrid;
     }
 
     @Override

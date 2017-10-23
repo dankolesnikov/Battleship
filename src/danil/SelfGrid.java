@@ -15,6 +15,7 @@ import danil.BattleGrid;
  Represents the player's own grid
  */
 public class SelfGrid extends BattleGrid {
+    private String typeGrid = "SelfGrid";
     private int NUMBER_OF_SHIP = 5;
     private int count = 0;
     private String name;
@@ -22,6 +23,7 @@ public class SelfGrid extends BattleGrid {
     private JPanel secondNextCell = null;
     private Point thirdNextPoint = new Point(0,0);
     private JPanel thirdNextCell = null;
+
 
     public SelfGrid(String name) {
         super();
@@ -37,6 +39,13 @@ public class SelfGrid extends BattleGrid {
         thirdNextCell = this.getComponentAt(newPoint);
     }
 
+    public String getTypeGrid() {
+        return typeGrid;
+    }
+
+    public String getName(){
+        return name;
+    }
     @Override
     protected JPanel getCell()
     {

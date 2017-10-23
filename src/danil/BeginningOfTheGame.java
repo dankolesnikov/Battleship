@@ -8,7 +8,9 @@ public class BeginningOfTheGame implements GameState {
     }
 
     public void player1Turn (){
+
         System.out.println("Begginng of the Game for player 1");
+
 
     }
     public void player2turn (){

@@ -8,8 +8,8 @@ public class BattleShip implements GameState {
 
     static PlayerData player1Data = new PlayerData();
     static PlayerData player2Data = new PlayerData();
-    PlayerScreen player1 = new PlayerScreen("Player1", true);
-    PlayerScreen player2 = new PlayerScreen("Player2", true);
+  static  PlayerScreen player1 = new PlayerScreen("Player1", true);
+  static  PlayerScreen player2 = new PlayerScreen("Player2", false);
 
     private BattleShip(){
         beginningOfTheGame = new BeginningOfTheGame(this);
@@ -44,6 +44,7 @@ public class BattleShip implements GameState {
     public GameState getBeginningOfTheGame (){
         return beginningOfTheGame;
     }
+
     public void setMiddleOfTheGame(GameState middleOfTheGame){
         this.middleOfTheGame = middleOfTheGame;
     }
@@ -65,4 +66,12 @@ public class BattleShip implements GameState {
         return this.state;
     }
 
+
+   static public PlayerScreen getPlayer1() {
+        return player1;
+    }
+
+   static public PlayerScreen getPlayer2() {
+        return player2;
+    }
 }
