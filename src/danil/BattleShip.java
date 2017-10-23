@@ -1,37 +1,65 @@
 package danil;
 
-public class BattleShip {
+public class BattleShip implements GameState {
+    private GameState beginningOfTheGame;
+    private GameState middleOfTheGame;
+    private GameState endOfTheGame;
     private GameState state;
-
-    private BattleShip(GameState state){
-        this.state = state;
-    }
-
     static PlayerData player1Data = new PlayerData();
     static PlayerData player2Data = new PlayerData();
+    PlayerScreen player1 = new PlayerScreen("Player1", true);
+    PlayerScreen player2 = new PlayerScreen("Player2", true);
+
+    private BattleShip(){
+        beginningOfTheGame = new BeginningOfTheGame(this);
+        middleOfTheGame = new MiddleOfTheGame(this);
+        endOfTheGame = new EndOFTheGame(this);
+
+        this.state = beginningOfTheGame;
+    }
 
     public static void main(String[] args) {
-
-        PlayerScreen player1 = new PlayerScreen("Player1", true);
-        PlayerScreen player2 = new PlayerScreen("Player2", true);
-
-        BattleShip b1 = new BattleShip(new BeginningOfTheGame());
-        b1.nextState(player1,player2,player1Data,player2Data);
-
-        b1.setState(new MiddleOfTheGame());
-        b1.nextState(player1,player2,player1Data,player2Data);
+        BattleShip game = new BattleShip();
+        game.player1Turn();
+        game.player2turn();
+        game.player1Turn();
+        game.player2turn();
+        game.player1Turn();
+        game.player2turn();
 
     }
 
+    public void player1Turn (){
+        state.player1Turn();
 
-    public void nextState(PlayerScreen player1, PlayerScreen player2, PlayerData player1Data, PlayerData player2Data){
-        state.nextState(this,player1,player2,player1Data,player2Data);
+    }
+    public void player2turn (){
+        state.player2turn();
+    }
+
+    public void setBeginningOfTheGame(GameState beginningOfTheGame){
+        this.beginningOfTheGame = beginningOfTheGame;
+    }
+    public GameState getBeginningOfTheGame (){
+        return beginningOfTheGame;
+    }
+    public void setMiddleOfTheGame(GameState middleOfTheGame){
+        this.middleOfTheGame = middleOfTheGame;
+    }
+    public GameState getMiddleOfTheGame() {
+        return middleOfTheGame;
+    }
+
+    public void setEndOfTheGame(GameState endOfTheGame) {
+        this.endOfTheGame = endOfTheGame;
+    }
+    public GameState getEndOfTheGame() {
+        return endOfTheGame;
     }
 
     public void setState(GameState state){
         this.state = state;
     }
-
     public GameState getState(){
         return this.state;
     }
