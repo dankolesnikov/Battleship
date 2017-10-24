@@ -9,6 +9,7 @@ public class BattleShip implements GameState {
     static PlayerData player1Data = new PlayerData();
     static PlayerData player2Data = new PlayerData();
     static PlayerScreen player1 = new PlayerScreen("Player1", true);
+<<<<<<< HEAD
     static PlayerScreen player2 = new PlayerScreen("Player2", false);
 
     private BattleShip(){
@@ -18,6 +19,9 @@ public class BattleShip implements GameState {
 
         this.state = beginningOfTheGame;
     }
+=======
+    static PlayerScreen player2 = new PlayerScreen("Player2", true);
+>>>>>>> dankolesnikov/master
 
     public static void main(String[] args) {
         BattleShip game = new BattleShip();
@@ -28,7 +32,11 @@ public class BattleShip implements GameState {
         game.player1Turn();
         game.player2turn();
 
+<<<<<<< HEAD
     }
+=======
+
+>>>>>>> dankolesnikov/master
 
     public void player1Turn (){
         state.player1Turn();

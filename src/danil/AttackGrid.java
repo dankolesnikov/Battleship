@@ -47,7 +47,11 @@ public class AttackGrid extends BattleGrid {
                 double yPos = (i.getY()/20+1);
                 int y = (int) yPos;
                 //String lol = BattleShip.player1.getTitle();
+<<<<<<< HEAD
                 // System.out.print("***"+name+"***");
+=======
+               // System.out.print("***"+name+"***");
+>>>>>>> dankolesnikov/master
                 if(name.equals("Player1")){
                     BattleShip.player1Data.setAttackData(x,y);
                     System.out.print("\nPlayer1: Set attackData array to 1 at    (X: "+x+" Y: "+y+")");
