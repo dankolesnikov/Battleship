@@ -15,6 +15,7 @@ import danil.BattleGrid;
  Represents the player's own grid
  */
 public class SelfGrid extends BattleGrid {
+
     private String typeGrid = "SelfGrid";
     private int NUMBER_OF_SHIP = 5;
     private int count = 0;
