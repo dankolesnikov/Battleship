@@ -14,7 +14,7 @@ public class BattleShip implements GameState {
     private BattleShip() {
         beginningOfTheGame = new BeginningOfTheGame(this);
         middleOfTheGame = new MiddleOfTheGame(this);
-        endOfTheGame = new EndOFTheGame(this);
+        endOfTheGame = new EndOfTheGame(this);
 
         this.state = beginningOfTheGame;
     }
@@ -35,6 +35,8 @@ public class BattleShip implements GameState {
 
     }
 
+
+    // State
     public void player2turn() {
         state.player2turn();
     }

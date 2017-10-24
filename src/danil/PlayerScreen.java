@@ -11,7 +11,6 @@ public class PlayerScreen extends JFrame {
     public PlayerScreen(String name, boolean show) {
         super(name);
         this.setLayout(new BorderLayout());
-
         this.add(new SelfGrid(name), BorderLayout.EAST);
         this.add(new AttackGrid(name), BorderLayout.WEST);
         this.add(new JLabel(name), BorderLayout.NORTH);

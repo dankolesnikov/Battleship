@@ -1,12 +1,7 @@
 package danil;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import java.net.*;
 
 public abstract class BattleGrid extends JPanel {
     private JPanel temp;
@@ -26,9 +21,6 @@ public abstract class BattleGrid extends JPanel {
         this.add(self);
     }
 
-    public JPanel getComponent (Point thePoint){
-        return (JPanel)temp.getComponentAt(thePoint);
-    }
     public JPanel getComponentAt( Point p) {
         Component comp = null;
         for (Component child : self.getComponents()) {

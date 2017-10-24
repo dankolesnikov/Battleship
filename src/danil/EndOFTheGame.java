@@ -1,9 +1,9 @@
 package danil;
 
-public class EndOFTheGame implements GameState {
+public class EndOfTheGame implements GameState {
     private BattleShip battleShip;
 
-    EndOFTheGame(BattleShip battleShip){
+    EndOfTheGame(BattleShip battleShip){
         this.battleShip = battleShip;
     }
 

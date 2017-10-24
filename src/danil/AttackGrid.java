@@ -3,9 +3,6 @@ package danil;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
-import java.net.*;
-import danil.BattleShip;
 
 /**
  Represents the player's own grid
@@ -41,19 +38,17 @@ public class AttackGrid extends BattleGrid {
                     BattleShip.player1Data.setAttackData(x,y);
                     Coordinate hit = new Coordinate(x,y);
                     BattleShip.player2Data.attackShip(hit);
-                    System.out.print("\nPlayer1: Set attackData array to 1 at    (X: "+x+" Y: "+y+")");
                     boolean success = BattleShip.player2Data.isHit(x,y);
                     if(success){
-                        System.out.print("\nSuccess for Player1! Hit at     (X: "+x+" Y: "+y+")");
+                        System.out.print("\nSuccess for Player1! Hit at (X: "+x+" Y: "+y+")");
                         panel.setBackground(Color.GREEN);
                     }
                     else{
                         panel.setBackground(Color.WHITE);
-                        System.out.print("\nMiss for Player 1!");
                     }
                     if(BattleShip.player2Data.isLoser()){
-                        System.out.print("Player 1 is WINNER! Congratulations.");
-                        JOptionPane.showMessageDialog(panel,"Player 1 WON!");
+                        System.out.print("Player 1 won.");
+                        JOptionPane.showMessageDialog(panel,"Player 1 WON! Congratulations!");
                     }
                 }
                 if(name.equals("Player2")){
@@ -63,15 +58,14 @@ public class AttackGrid extends BattleGrid {
                     boolean success = BattleShip.player1Data.isHit(x,y);
                     if(success){
                         panel.setBackground(Color.GREEN);
-                        System.out.print("\nSuccess for Player2! Hit at     (X: "+x+" Y: "+y+")");
+                        System.out.print("\nSuccess for Player2! Hit at (X: "+x+" Y: "+y+")");
                     }
                     else{
-                        System.out.print("\nFailure!");
                         panel.setBackground(Color.WHITE);
                     }
                     if(BattleShip.player1Data.isLoser()){
-                        System.out.print("Player 2 is WINNER! Congratulations.");
-                        JOptionPane.showMessageDialog(panel,"Player 2 WON!");
+                        System.out.print("Player 2 won");
+                        JOptionPane.showMessageDialog(panel,"Player 2 WON! Congratulations!");
                     }
                 }
 

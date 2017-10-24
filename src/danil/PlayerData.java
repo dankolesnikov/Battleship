@@ -1,9 +1,6 @@
 package danil;
 
-import javax.swing.text.html.HTMLDocument;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -15,7 +12,6 @@ public class PlayerData {
      int[][] selfData = new int[11][11];
      int count=0;
 
-
     ArrayList<Ship> fleet = new ArrayList<>();
 
     public void attackShip(Coordinate hitCord) {
@@ -23,19 +19,16 @@ public class PlayerData {
         while (itr.hasNext()){
             Ship temp = (Ship)itr.next();
             temp.isHit(hitCord);
-
             if(temp.isShipSunk()){
                 itr.remove();
-                System.out.println("Ship is sunk");
+                System.out.println("Ship has sunk");
                 System.out.println(fleet.size() + " more ship to go");
             }
-
         }
-
     }
+
     public void addShip(Coordinate a,Coordinate b,Coordinate c){
         fleet.add(new Ship(a,b,c));
-
     }
 
     public void printFleet(){
@@ -46,12 +39,9 @@ public class PlayerData {
         }
     }
 
-
     public void setAttackData(int x, int y) {
         attackData[x][y] = 1;
-
     }
-
 
 
     public void setSelfData(int x, int y){
@@ -84,8 +74,7 @@ public class PlayerData {
 
     }
 
-
-
+    // For Debugging
     public void printSelfData(){
         for (int i = 1; i < selfData.length; i++) {
             for (int j = 1; j < selfData[i].length; j++) {
