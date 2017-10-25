@@ -8,9 +8,8 @@ import java.util.Iterator;
  */
 
 public class PlayerData {
-     int[][] attackData = new int[11][11];
-     int[][] selfData = new int[11][11];
-     int count=0;
+    private int[][] attackData = new int[11][11];
+    private int[][] selfData = new int[11][11];
 
     ArrayList<Ship> fleet = new ArrayList<>();
 
@@ -18,12 +17,32 @@ public class PlayerData {
         Iterator itr = fleet.iterator();
         while (itr.hasNext()){
             Ship temp = (Ship)itr.next();
-            temp.isHit(hitCord);
+            temp.Hit(hitCord); // Hit the point in the ship
+        }
+    }
+
+    // Boolean method returns true if the Ship was sunk
+    public boolean isSunk(Coordinate hitCord){
+        for (int i=0;i<=fleet.size();i++){
+            Ship temp = fleet.get(i);
             if(temp.isShipSunk()){
-                itr.remove();
-                System.out.println("Ship has sunk");
-                System.out.println(fleet.size() + " more ship to go");
+                System.out.println("Ship sunk!"+fleet.size() + " more ship to go");
+                fleet.remove(i);
+                return true;
             }
+            else{
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public boolean isPlayerLost(){
+        if(fleet.size()==0){
+            return true;
+        }
+        else{
+            return false;
         }
     }
 
@@ -32,9 +51,10 @@ public class PlayerData {
     }
 
     public void printFleet(){
-        Iterator itr = fleet.iterator();
-        while (itr.hasNext()){
-            Ship temp = (Ship)itr.next();
+        System.out.print("printFleet called");
+        Iterator itr2 = fleet.iterator();
+        while (itr2.hasNext()){
+            Ship temp = (Ship)itr2.next();
             System.out.println(temp.printShip());
         }
     }
@@ -56,22 +76,11 @@ public class PlayerData {
     public boolean isHit(int x, int y){
 
         if(selfData[x][y]==1){
-            count++;
             return true;
         }
         else{
             return false;
         }
-    }
-
-    public boolean isLoser(){
-        if(count>=15){
-            return true;
-        }
-        else{
-            return false;
-        }
-
     }
 
     // For Debugging

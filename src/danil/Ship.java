@@ -18,7 +18,7 @@ public class Ship {
         this.c = c;
     }
 
-    public void isHit(Coordinate hit){
+    public void Hit(Coordinate hit){
         if(hit.getY() == a.getY() && hit.getX() == a.getX()){
             Ahit=true;
         }

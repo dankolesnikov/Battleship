@@ -38,6 +38,7 @@ public class AttackGrid extends BattleGrid {
                     BattleShip.player1Data.setAttackData(x,y);
                     Coordinate hit = new Coordinate(x,y);
                     BattleShip.player2Data.attackShip(hit);
+
                     boolean success = BattleShip.player2Data.isHit(x,y);
                     if(success){
                         System.out.print("\nSuccess for Player1! Hit at (X: "+x+" Y: "+y+")");
@@ -46,15 +47,22 @@ public class AttackGrid extends BattleGrid {
                     else{
                         panel.setBackground(Color.WHITE);
                     }
-                    if(BattleShip.player2Data.isLoser()){
-                        System.out.print("Player 1 won.");
-                        JOptionPane.showMessageDialog(panel,"Player 1 WON! Congratulations!");
+
+                    boolean isSunk = BattleShip.player2Data.isSunk(hit);
+                    if(isSunk){
+                        JOptionPane.showMessageDialog(panel,"Player's 2 ship was sunk! Congratulations!");
+                    }
+
+                    boolean lost = BattleShip.player2Data.isPlayerLost();
+                    if(lost){
+                        JOptionPane.showMessageDialog(panel,"You(player 1) WON! Congratulations!");
                     }
                 }
                 if(name.equals("Player2")){
                     BattleShip.player2Data.setAttackData(x,y);
                     Coordinate hit = new Coordinate(x,y);
                     BattleShip.player1Data.attackShip(hit);
+
                     boolean success = BattleShip.player1Data.isHit(x,y);
                     if(success){
                         panel.setBackground(Color.GREEN);
@@ -63,9 +71,15 @@ public class AttackGrid extends BattleGrid {
                     else{
                         panel.setBackground(Color.WHITE);
                     }
-                    if(BattleShip.player1Data.isLoser()){
-                        System.out.print("Player 2 won");
-                        JOptionPane.showMessageDialog(panel,"Player 2 WON! Congratulations!");
+
+                    boolean isSunk = BattleShip.player1Data.isSunk(hit);
+                    if(isSunk){
+                        JOptionPane.showMessageDialog(panel,"Player's 1 ship was sunk! Congratulations!");
+                    }
+
+                    boolean lost = BattleShip.player1Data.isPlayerLost();
+                    if(lost){
+                        JOptionPane.showMessageDialog(panel,"You(player 2) WON! Congratulations!");
                     }
                 }
 

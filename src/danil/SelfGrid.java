@@ -76,14 +76,13 @@ public class SelfGrid extends BattleGrid {
                 if(secondNextCell != null && thirdNextCell != null && !secondNextCell.getBackground().equals(Color.CYAN)
                         && !thirdNextCell.getBackground().equals(Color.CYAN) && count < NUMBER_OF_SHIP) {
                     if(name.equals("Player1")){
-                        //System.out.print("\nPlayer1: selfData array to 1 at  (X: "+x+" Y: "+y+")");
-                        //System.out.print("\nPlayer1: selfData array to 1 at  (X: "+x2+" Y: "+y2+")");
-                        //System.out.print("\nPlayer1: selfData array to 1 at  (X: "+x3+" Y: "+y3+")");
+                        /*System.out.print("\nPlayer1: selfData array to 1 at  (X: "+x+" Y: "+y+")");
+                        System.out.print("\nPlayer1: selfData array to 1 at  (X: "+x2+" Y: "+y2+")");
+                        System.out.print("\nPlayer1: selfData array to 1 at  (X: "+x3+" Y: "+y3+")");*/
                         BattleShip.player1Data.setSelfData(x,y); // set array cells to 1
                         BattleShip.player1Data.setSelfData(x2,y2);
                         BattleShip.player1Data.setSelfData(x3,y3);
                         BattleShip.player1Data.addShip(a,b,c); // Create new ship object
-                        //BattleShip.player1Data.printFleet();
 
                     }
                     if(name.equals("Player2")){
@@ -94,9 +93,6 @@ public class SelfGrid extends BattleGrid {
                         BattleShip.player2Data.setSelfData(x2,y2);
                         BattleShip.player2Data.setSelfData(x3,y3);
                         BattleShip.player2Data.addShip(a,b,c); // Create new ship object
-                        //BattleShip.player2Data.printFleet();
-
-
                     }
                     count++;
                     firstCell.setBackground(Color.CYAN);
