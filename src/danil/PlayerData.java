@@ -8,22 +8,51 @@ import java.util.Iterator;
  */
 
 public class PlayerData {
+
     private int[][] attackData = new int[11][11];
     private int[][] selfData = new int[11][11];
 
-    ArrayList<Ship> fleet = new ArrayList<>();
+    private ArrayList<Ship> fleet = new ArrayList<>();
 
-    public int shipsLeft(){
-        int temp = fleet.size();
-       // System.out.print(temp);
-        return temp;
+    /* Methods called from AttackGrid class */
+
+    // setAttackData sets 2D array attackData based on input x,y coordinates
+    public void setAttackData(int x, int y) {
+        attackData[x][y] = 1;
     }
 
+    // attackShip searched goes through the array and tries to attack every point of every ship. If there is a match it will be marked in the ship object
     public void attackShip(Coordinate hitCord) {
         Iterator itr = fleet.iterator();
         while (itr.hasNext()){
             Ship temp = (Ship)itr.next();
             temp.Hit(hitCord); // Hit the point in the ship
+        }
+    }
+
+    // isHit returns true if there is a ship at the point that was hit
+    public boolean isHit(Coordinate point){
+        for (int i=0;i<fleet.size();){
+            Ship temp = fleet.get(i);
+            if(temp.isPointHit(point)){
+                System.out.print("Point was hit!");
+                return true;
+            }
+            else{
+                i++; // increase the counter if the the ship i didn't contain a point
+
+            }
+        }
+        return false; // must return false because
+    }
+
+    // isPlayerLost determines if the player lost based on the fleet arraylist size
+    public boolean isPlayerLost(){
+        if(fleet.size()==0){
+            return true; // Player lost
+        }
+        else{
+            return false;
         }
     }
 
@@ -37,38 +66,13 @@ public class PlayerData {
                 return true;
             }
             else{
-                i++;
+                i++; // increase the counter if the ship wasn't sunk
             }
         }
         return false;
     }
 
-    public boolean isPlayerLost(){
-        if(fleet.size()==0){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-    public void addShip(Coordinate a,Coordinate b,Coordinate c){
-        fleet.add(new Ship(a,b,c));
-    }
-
-    public void printFleet(){
-        System.out.print("printFleet called");
-        Iterator itr2 = fleet.iterator();
-        while (itr2.hasNext()){
-            Ship temp = (Ship)itr2.next();
-            //System.out.println(temp.printShip());
-        }
-    }
-
-    public void setAttackData(int x, int y) {
-        attackData[x][y] = 1;
-    }
-
+    /* Methods called from SelfGrid class */
 
     public void setSelfData(int x, int y){
         if(selfData[x][y]==1){
@@ -79,22 +83,28 @@ public class PlayerData {
         }
     }
 
-    public boolean isHit(Coordinate point){
-        for (int i=0;i<fleet.size();){
-            Ship temp = fleet.get(i);
-            if(temp.isPointHit(point)){
-                System.out.print("Point was hit!");
-                return true;
-            }
-            else{
-                i++;
-
-            }
-        }
-        return false;
+    // Creates a new ship and adds to the fleet array
+    public void addShip(Coordinate a,Coordinate b,Coordinate c){
+        fleet.add(new Ship(a,b,c));
     }
 
-    // For Debugging
+    // returns number of ships left
+    public int shipsLeft(){
+        int temp = fleet.size();
+        return temp;
+    }
+    // returns the fleet
+    public void printFleet(){
+        System.out.print("printFleet called");
+        Iterator itr2 = fleet.iterator();
+        while (itr2.hasNext()){
+            Ship temp = (Ship)itr2.next();
+            //System.out.println(temp.printShip());
+        }
+    }
+
+
+    /* For Debugging */
     public void printSelfData(){
         for (int i = 1; i < selfData.length; i++) {
             for (int j = 1; j < selfData[i].length; j++) {
@@ -112,13 +122,4 @@ public class PlayerData {
         }
     }
 
-
-    public void getAttackData(int x, int y){
-    }
-
-    public int getSelfData(int x, int y){
-        int result = selfData[x][y];
-        return result;
-
-    }
 }
