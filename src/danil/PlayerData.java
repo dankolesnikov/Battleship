@@ -13,6 +13,12 @@ public class PlayerData {
 
     ArrayList<Ship> fleet = new ArrayList<>();
 
+    public int shipsLeft(){
+        int temp = fleet.size();
+        System.out.print(temp);
+        return temp;
+    }
+
     public void attackShip(Coordinate hitCord) {
         Iterator itr = fleet.iterator();
         while (itr.hasNext()){
