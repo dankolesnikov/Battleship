@@ -8,9 +8,9 @@ import java.net.*;
 
 
 public class PlayerScreen extends JFrame {
-    int size;
-    public PlayerScreen(String name, boolean show) {
+    public PlayerScreen(String name,int size, boolean show) {
         super(name);
+        super(size);
         this.setLayout(new BorderLayout());
         this.add(new SelfGrid(name), BorderLayout.EAST);
         this.add(new AttackGrid(name), BorderLayout.WEST);
@@ -20,22 +20,22 @@ public class PlayerScreen extends JFrame {
         next.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(name.equals("Player1")){
-
+                    size=BattleShip.player1Data.shipsLeft();
                     hideScreen();
                     BattleShip.getPlayer2().showScreen();
                 }
                 if(name.equals("Player2")){
+                    size=BattleShip.player2Data.shipsLeft();
                     hideScreen();
                     BattleShip.getPlayer1().showScreen();
                 }
             }
         });
-        this.add(horizontalBox, BorderLayout.SOUTH);
+        int s = 6;
         horizontalBox.add(new JLabel("Status for: "+name));
-
-
-        horizontalBox.add(new JTextField("Number of my ships left: "+size));
+        horizontalBox.add(new JLabel("\nNumber of my ships left: "+s));
         this.add(next, BorderLayout.CENTER);
+        this.add(horizontalBox, BorderLayout.SOUTH);
         this.pack();
         this.setVisible(show);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,14 +46,9 @@ public class PlayerScreen extends JFrame {
     }
 
     public void hideScreen() {
-        if(name.equals("Player1")){
-            size = BattleShip.player1Data.shipsLeft();
-        }
-        if(name.equals("Player2")){
-            size = BattleShip.player2Data.shipsLeft();
-        }
-        this.setVisible(false);
+        size=BattleShip.player1Data.shipsLeft();
 
+        this.setVisible(false);
     }
 
 //    public SelfGrid getSelfGridPlayer1(){
