@@ -27,7 +27,6 @@ public class AttackGrid extends BattleGrid {
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                panel.setBackground(Color.WHITE);
                 Point i = panel.getLocation();
                 double xPos = (i.getX()/20+1);
                 int x = (int) xPos;
@@ -39,9 +38,10 @@ public class AttackGrid extends BattleGrid {
                     Coordinate hit = new Coordinate(x,y);
                     BattleShip.player2Data.attackShip(hit);
 
-                    boolean success = BattleShip.player2Data.isHit(x,y);
+                    boolean success = BattleShip.player2Data.isHit(hit);
                     if(success){
                         System.out.print("\nSuccess for Player1! Hit at (X: "+x+" Y: "+y+")");
+                        System.out.print("Player 2 fleet size: "+BattleShip.player2Data.shipsLeft());
                         panel.setBackground(Color.GREEN);
                     }
                     else{
@@ -51,8 +51,8 @@ public class AttackGrid extends BattleGrid {
                     boolean isSunk = BattleShip.player2Data.isSunk(hit);
                     if(isSunk){
                         JOptionPane.showMessageDialog(panel,"Player's 2 ship was sunk! Congratulations!");
-                    }
 
+                    }
                     boolean lost = BattleShip.player2Data.isPlayerLost();
                     if(lost){
                         JOptionPane.showMessageDialog(panel,"You(player 1) WON! Congratulations!");
@@ -63,10 +63,12 @@ public class AttackGrid extends BattleGrid {
                     Coordinate hit = new Coordinate(x,y);
                     BattleShip.player1Data.attackShip(hit);
 
-                    boolean success = BattleShip.player1Data.isHit(x,y);
+                    boolean success = BattleShip.player1Data.isHit(hit);
                     if(success){
                         panel.setBackground(Color.GREEN);
                         System.out.print("\nSuccess for Player2! Hit at (X: "+x+" Y: "+y+")");
+                        System.out.print("Player 1 fleet size: "+BattleShip.player1Data.shipsLeft());
+
                     }
                     else{
                         panel.setBackground(Color.WHITE);

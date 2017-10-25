@@ -8,9 +8,9 @@ public class Ship {
     Coordinate b;
     Coordinate c;
 
-    boolean Ahit=false;
-    boolean Bhit=false;
-    boolean Chit=false;
+    boolean Ahit;
+    boolean Bhit;
+    boolean Chit;
 
     Ship(Coordinate a,Coordinate b,Coordinate c){
         this.a = a;
@@ -18,6 +18,18 @@ public class Ship {
         this.c = c;
     }
 
+    public boolean isPointHit(Coordinate hit){
+        if(hit.getX() == a.getX()&&hit.getY() == a.getY()){
+            return true;
+        }
+        else if(hit.getX() == b.getX()&&hit.getY() == b.getY()){
+            return true;
+        }
+        else if(hit.getX() == c.getX()&&hit.getY() == c.getY()){
+            return true;
+        }
+        return false;
+    }
     public void Hit(Coordinate hit){
         if(hit.getY() == a.getY() && hit.getX() == a.getX()){
             Ahit=true;
@@ -40,7 +52,8 @@ public class Ship {
     }
 
     // Debugging functions
-    public String printShip(){
-        return "\na cord. "+ a.toString() + "\nb cord. "+ b.toString() +"\nc cord. " +c.toString();
+    public void printShip(){
+        String result = "A("+a.getX()+", "+a.getY()+")"+" B("+b.getX()+", "+b.getY()+") C("+c.getX()+", "+c.getY()+")";
+        System.out.print(result);
     }
 }

@@ -15,7 +15,7 @@ public class PlayerData {
 
     public int shipsLeft(){
         int temp = fleet.size();
-        System.out.print(temp);
+       // System.out.print(temp);
         return temp;
     }
 
@@ -29,15 +29,15 @@ public class PlayerData {
 
     // Boolean method returns true if the Ship was sunk
     public boolean isSunk(Coordinate hitCord){
-        for (int i=0;i<=fleet.size();i++){
+        for (int i=0;i<fleet.size();){
             Ship temp = fleet.get(i);
             if(temp.isShipSunk()){
-                System.out.println("Ship sunk!"+fleet.size() + " more ship to go");
                 fleet.remove(i);
+                System.out.println("\nShip sunk! "+shipsLeft() + " more ship to go");
                 return true;
             }
             else{
-                return false;
+                i++;
             }
         }
         return false;
@@ -61,7 +61,7 @@ public class PlayerData {
         Iterator itr2 = fleet.iterator();
         while (itr2.hasNext()){
             Ship temp = (Ship)itr2.next();
-            System.out.println(temp.printShip());
+            //System.out.println(temp.printShip());
         }
     }
 
@@ -79,14 +79,19 @@ public class PlayerData {
         }
     }
 
-    public boolean isHit(int x, int y){
+    public boolean isHit(Coordinate point){
+        for (int i=0;i<fleet.size();){
+            Ship temp = fleet.get(i);
+            if(temp.isPointHit(point)){
+                System.out.print("Point was hit!");
+                return true;
+            }
+            else{
+                i++;
 
-        if(selfData[x][y]==1){
-            return true;
+            }
         }
-        else{
-            return false;
-        }
+        return false;
     }
 
     // For Debugging
