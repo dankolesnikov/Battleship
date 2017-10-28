@@ -3,6 +3,12 @@ package danil;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author Danil Kolesnikov danil.kolesnikov@sjsu.edu
+ * @author Minh Phan minh.phan@sjsu.edu
+ * CS 151 HW4 Fall 2017
+ */
+
 public abstract class BattleGrid extends JPanel {
     private JPanel temp;
     JPanel self;

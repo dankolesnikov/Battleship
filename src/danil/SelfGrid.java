@@ -12,6 +12,12 @@ import danil.PlayerData;
 import danil.BattleGrid;
 
 /**
+ * @author Danil Kolesnikov danil.kolesnikov@sjsu.edu
+ * @author Minh Phan minh.phan@sjsu.edu
+ * CS 151 HW4 Fall 2017
+ */
+
+/**
  Represents the player's own grid
  */
 public class SelfGrid extends BattleGrid {
@@ -84,8 +90,6 @@ public class SelfGrid extends BattleGrid {
                         BattleShip.player1Data.setSelfData(x3,y3);
                         BattleShip.player1Data.addShip(a,b,c); // Create new ship object
                         //System.out.print("\nShip for player 1: ");
-                        Ship temp = new Ship(a,b,c);
-                        //temp.printShip();
 
                     }
                     if(name.equals("Player2")){
@@ -96,9 +100,6 @@ public class SelfGrid extends BattleGrid {
                         BattleShip.player2Data.setSelfData(x2,y2);
                         BattleShip.player2Data.setSelfData(x3,y3);
                         BattleShip.player2Data.addShip(a,b,c); // Create new ship object
-                        //System.out.print("\nShip for player 2: ");
-                        Ship temp = new Ship(a,b,c);
-                       // temp.printShip();
                     }
                     count++;
                     firstCell.setBackground(Color.CYAN);

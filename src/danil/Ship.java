@@ -1,8 +1,11 @@
 package danil;
 
 /**
- * Created by danil on 10/23/17.
+ * @author Danil Kolesnikov danil.kolesnikov@sjsu.edu
+ * @author Minh Phan minh.phan@sjsu.edu
+ * CS 151 HW4 Fall 2017
  */
+
 public class Ship {
 
     Coordinate a;

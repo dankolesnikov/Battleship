@@ -5,10 +5,18 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
+ * @author Danil Kolesnikov danil.kolesnikov@sjsu.edu
+ * @author Minh Phan minh.phan@sjsu.edu
+ * CS 151 HW4 Fall 2017
+ */
+
+/**
  Represents the player's own grid
  */
 public class AttackGrid extends BattleGrid {
     private String name;
+    private int enemyShipSunkPlayer1 = 0;
+    private int enemyShipSunkPlayer2 = 0;
 
     public AttackGrid(String name) {
         super();
@@ -50,8 +58,11 @@ public class AttackGrid extends BattleGrid {
 
                     boolean isSunk = BattleShip.player2Data.isSunk(hit);
                     if(isSunk){
+                        enemyShipSunkPlayer1++;
+                        BattleShip.player1.enemyShipSunk.setText(Integer.toString(enemyShipSunkPlayer1));
                         JOptionPane.showMessageDialog(panel,"Player's 2 ship was sunk! Congratulations!");
-
+                        String ownShipSunkPlayer2 = Integer.toString(BattleShip.player2Data.getNumberOfOwnShipSunk());
+                        BattleShip.player2.ownShipSunk.setText(ownShipSunkPlayer2);
                     }
                     boolean lost = BattleShip.player2Data.isPlayerLost();
                     if(lost){
@@ -76,7 +87,11 @@ public class AttackGrid extends BattleGrid {
 
                     boolean isSunk = BattleShip.player1Data.isSunk(hit);
                     if(isSunk){
+                        enemyShipSunkPlayer2++;
+                        BattleShip.player2.enemyShipSunk.setText(Integer.toString(enemyShipSunkPlayer2));
                         JOptionPane.showMessageDialog(panel,"Player's 1 ship was sunk! Congratulations!");
+                        String ownShipSunkPlayer1 = Integer.toString(BattleShip.player1Data.getNumberOfOwnShipSunk());
+                        BattleShip.player1.ownShipSunk.setText(ownShipSunkPlayer1);
                     }
 
                     boolean lost = BattleShip.player1Data.isPlayerLost();

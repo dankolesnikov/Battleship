@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * Created by danil on 10/22/17.
+ * @author Danil Kolesnikov danil.kolesnikov@sjsu.edu
+ * @author Minh Phan minh.phan@sjsu.edu
+ * CS 151 HW4 Fall 2017
  */
 
 public class PlayerData {
 
     private int[][] attackData = new int[11][11];
     private int[][] selfData = new int[11][11];
+    private int numberOfShipSunk = 0;
 
     private ArrayList<Ship> fleet = new ArrayList<>();
 
@@ -19,6 +22,14 @@ public class PlayerData {
     // setAttackData sets 2D array attackData based on input x,y coordinates
     public void setAttackData(int x, int y) {
         attackData[x][y] = 1;
+    }
+
+    public int getNumberOfOwnShipSunk() {
+        return numberOfShipSunk;
+    }
+
+    public ArrayList<Ship> getFleet(){
+        return fleet;
     }
 
     // attackShip searched goes through the array and tries to attack every point of every ship. If there is a match it will be marked in the ship object
@@ -61,6 +72,7 @@ public class PlayerData {
         for (int i=0;i<fleet.size();){
             Ship temp = fleet.get(i);
             if(temp.isShipSunk()){
+                numberOfShipSunk++;
                 fleet.remove(i);
                 System.out.println("\nShip sunk! "+shipsLeft() + " more ship to go");
                 return true;
