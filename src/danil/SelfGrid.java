@@ -24,24 +24,29 @@ public class SelfGrid extends BattleGrid {
     private int NUMBER_OF_SHIP = 5;
     private int count = 0;
     private String name;
+    private Point firstPoint = new Point(0,0);
+    private JPanel firstCell = null;
     private Point secondNextPoint = new Point(0,0);
     private JPanel secondNextCell = null;
     private Point thirdNextPoint = new Point(0,0);
     private JPanel thirdNextCell = null;
+    private JPanel thePanel = null;
+
 
     public SelfGrid(String name) {
         super();
         this.name = name;
 
     }
-
+    public void getJpanel(Point newPoint){
+        thePanel = this.getComponentAt(newPoint);
+    }
     public void getComp2(Point newPoint){
         secondNextCell = this.getComponentAt(newPoint);
     }
     public void getComp3(Point newPoint){
         thirdNextCell = this.getComponentAt(newPoint);
     }
-
     @Override
     protected JPanel getCell()
     {
@@ -50,11 +55,12 @@ public class SelfGrid extends BattleGrid {
         firstCell.setBackground(Color.black);
         firstCell.setBorder(BorderFactory.createLineBorder(Color.blue, 2));
         firstCell.setPreferredSize(new Dimension(20, 20)); // for demo purposes only
+
         firstCell.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
-                Point firstPoint = firstCell.getLocation();
+                firstPoint = firstCell.getLocation();
                 double xPos = (firstPoint.getX()/20+1);
                 int x = (int) xPos;
                 double yPos = (firstPoint.getY()/20+1);
@@ -79,25 +85,58 @@ public class SelfGrid extends BattleGrid {
                 getComp2(secondNextPoint);
                 getComp3(thirdNextPoint);
 
-                if(secondNextCell != null && thirdNextCell != null && !secondNextCell.getBackground().equals(Color.CYAN)
-                        && !thirdNextCell.getBackground().equals(Color.CYAN) && count < NUMBER_OF_SHIP) {
-                    if(name.equals("Player1")){
-                        BattleShip.player1Data.addShip(a,b,c); // Create new ship object
-
-
-                    }
-                    if(name.equals("Player2")){
-                        BattleShip.player2Data.addShip(a,b,c); // Create new ship object
-
-                    }
-                    count++;
-                    firstCell.setBackground(Color.CYAN);
-                    secondNextCell.setBackground(Color.CYAN);
-                    thirdNextCell.setBackground(Color.CYAN);
+                if(name.equals("Player1")){
+                    BattleShip.player1Data.addShip(a,b,c); // Create new ship object
+                    draw();
+                }
+                if(name.equals("Player2")){
+                    BattleShip.player2Data.addShip(a,b,c); // Create new ship object
+                    draw();
                 }
 
             }
         });
         return firstCell;
     }
+
+    public int panelXToNumber(Point p){
+        double tempX = p.getLocation().getX()/20+1;
+        int x = (int) tempX;
+        return x;
+    }
+    public int panelYToNumber(Point p){
+        double tempX = p.getLocation().getY()/20+1;
+        int x = (int) tempX;
+        return x;
+    }
+
+    public void draw(){
+
+        int[][] temp=null;
+        if(name.equals("Player1")){
+            temp = BattleShip.player1Data.getSelfData();
+        }
+        else if(name.equals("Player2")){
+            temp = BattleShip.player2Data.getSelfData();
+        }
+
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 11; j++)
+            {
+                if(temp[i][j]==1){
+                    int x = numberToPanel(i);
+                    int y = numberToPanel(j);
+                    Point p = new Point(x,y);
+                    getJpanel(p);
+                    thePanel.setBackground(Color.CYAN);
+                }
+            }
+        }
+    }
+
+    public int numberToPanel(int s){
+        int temp = (s-1)*20;
+        return temp;
+    }
+
 }

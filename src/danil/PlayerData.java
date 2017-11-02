@@ -1,5 +1,6 @@
 package danil;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -85,28 +86,84 @@ public class PlayerData {
     }
 
     /* Methods called from SelfGrid class */
-    public void setSelfData(Coordinate cord){
-        int x = cord.getX();
-        int y = cord.getY();
-        if(selfData[x][y]==1){
-            System.out.print("Overlap");
-        }
-        else{
-            selfData[x][y]=1;
-        }
+    public void setSelfData(Coordinate a, Coordinate b, Coordinate c){
+        selfData[a.getX()][a.getY()]=1;
+        selfData[b.getX()][b.getY()]=1;
+        selfData[c.getX()][c.getY()]=1;
     }
 
     // Returns data from selfData 2D array
     public int[][] getSelfData(){
-
+        return selfData;
     }
 
     // Creates a new ship and adds to the fleet array
     public void addShip(Coordinate a,Coordinate b,Coordinate c){
-        fleet.add(new Ship(a,b,c));
-        setSelfData(a);
-        setSelfData(b);
-        setSelfData(c);
+        if(isOvelap(a,b,c)){
+           System.out.print("Overlap");
+        }
+        else if(fleet.size()==5){
+            System.out.print("Fleet is full");
+        }
+        else{
+            fleet.add(new Ship(a,b,c));
+            setSelfData(a,b,c);
+        }
+    }
+    public int getDataFromCell(int x, int y){
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 11; j++) {
+                if(i == x && j ==y){
+                    return selfData[i][j];
+                }
+            }
+        }
+        return -1;
+    }
+    public boolean isOvelap(Coordinate a, Coordinate b, Coordinate c){
+        boolean isA = false;
+        boolean isB = false;
+        boolean isC = false;
+
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 11; j++)
+            {
+                if((a.getX()==i&&a.getY()==j)){
+                    if(getDataFromCell(i,j) == 1){
+                        isA = true;
+                    }
+                    else{
+                        isA = false;
+                    }
+                }
+                if(b.getX()==i&&b.getY()==j){
+                    if(getDataFromCell(i,j) == 1){
+                        isB = true;
+                    }
+                    else{
+                        isB = false;
+                    }
+                }
+                if(c.getX()==i&&c.getY()==j){
+                    if(getDataFromCell(i,j) == 1){
+                        isC = true;
+                    }
+                    else{
+                        isC = false;
+                    }
+                }
+            }
+        }
+
+        if(isA || isB || isC){
+            return true;
+        }
+
+        if(a.getX()==10||a.getX()==9||b.getX()==10){
+            System.out.print("Edge");
+            return true;
+        }
+        return false;
     }
 
     // returns number of ships left
