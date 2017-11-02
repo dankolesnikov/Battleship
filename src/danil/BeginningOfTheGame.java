@@ -18,14 +18,13 @@ public class BeginningOfTheGame implements GameState {
     }
 
     public void player1Turn (){
+        //player2.getSelfGrid().setSelfGridListener(true);
+        player1.getSelfGrid().setSelfGridListener(true);
 
-        if(player1.getSelfGrid() == null){
-            System.out.println("in begState player 1 selfgrid is null");
-        }
         System.out.println("Begginng of the Game for player 1");
     }
     public void player2turn (){
-        //player2.getSelfGrid().setSelfGridListener(true);
+        player2.getSelfGrid().setSelfGridListener(true);
 
         System.out.println("Begginng of the Game for player 2");
         battleShip.setState(battleShip.getMiddleOfTheGame());

@@ -17,11 +17,15 @@ public class AttackGrid extends BattleGrid {
     private String name;
     private int enemyShipSunkPlayer1 = 0;
     private int enemyShipSunkPlayer2 = 0;
-    private boolean isAttackGridListener=true;
+    private boolean isAttackGridListener ;
+    private BattleShip battleShip;
+    private PlayerScreen player;
 
-    public AttackGrid(String name) {
+    public AttackGrid(String name,BattleShip battleShip) {
         super();
         this.name = name;
+        this.player = player;
+        this.battleShip = battleShip;
 
     }
 
@@ -44,60 +48,64 @@ public class AttackGrid extends BattleGrid {
                     int y = (int) yPos;
 
                     if (name.equals("Player1")) {
-                        BattleShip.player1Data.setAttackData(x, y);
+                        battleShip.getPlayer1Data().setAttackData(x, y);
 
                         Coordinate hit = new Coordinate(x, y);
-                        BattleShip.player2Data.attackShip(hit);
+                        battleShip.getPlayer2Data().attackShip(hit);
 
-                        boolean success = BattleShip.player2Data.isHit(hit);
+                        boolean success =  battleShip.getPlayer2Data().isHit(hit);
                         if (success) {
-                            System.out.print("\nSuccess for Player1! Hit at (X: " + x + " Y: " + y + ")");
-                            System.out.print("Player 2 fleet size: " + BattleShip.player2Data.shipsLeft());
+//                            System.out.print("\nSuccess for Player1! Hit at (X: " + x + " Y: " + y + ")");
+//                            System.out.print("Player 2 fleet size: " + BattleShip.player2Data.shipsLeft());
                             panel.setBackground(Color.GREEN);
                         } else {
                             panel.setBackground(Color.WHITE);
                         }
 
-                        boolean isSunk = BattleShip.player2Data.isSunk(hit);
+                        boolean isSunk = battleShip.getPlayer2Data().isSunk(hit);
                         if (isSunk) {
                             enemyShipSunkPlayer1++;
-                            BattleShip.player1.enemyShipSunk.setText(Integer.toString(enemyShipSunkPlayer1));
+                            battleShip.getPlayer1().enemyShipSunk.setText(Integer.toString(enemyShipSunkPlayer1));
                             JOptionPane.showMessageDialog(panel, "Player's 2 ship was sunk! Congratulations!");
-                            String ownShipSunkPlayer2 = Integer.toString(BattleShip.player2Data.getNumberOfOwnShipSunk());
-                            BattleShip.player2.ownShipSunk.setText(ownShipSunkPlayer2);
+                            String ownShipSunkPlayer2 = Integer.toString(battleShip.getPlayer2Data().getNumberOfOwnShipSunk());
+                            battleShip.getPlayer2().ownShipSunk.setText(ownShipSunkPlayer2);
                         }
-                        boolean lost = BattleShip.player2Data.isPlayerLost();
+                        boolean lost = battleShip.getPlayer2Data().isPlayerLost();
                         if (lost) {
-                            JOptionPane.showMessageDialog(panel, "You(player 1) WON! Congratulations!");
+                            battleShip.setState(battleShip.getEndOfTheGame());
+                            JOptionPane.showMessageDialog(panel, "You(player 1) WON! Congratulations!\nClick OK will Exit the game");
+                            battleShip.player1Turn();
                         }
                     }
                     if (name.equals("Player2")) {
-                        BattleShip.player2Data.setAttackData(x, y);
+                        battleShip.getPlayer2Data().setAttackData(x, y);
                         Coordinate hit = new Coordinate(x, y);
-                        BattleShip.player1Data.attackShip(hit);
+                        battleShip.getPlayer1Data().attackShip(hit);
 
-                        boolean success = BattleShip.player1Data.isHit(hit);
+                        boolean success = battleShip.getPlayer1Data().isHit(hit);
                         if (success) {
                             panel.setBackground(Color.GREEN);
-                            System.out.print("\nSuccess for Player2! Hit at (X: " + x + " Y: " + y + ")");
-                            System.out.print("Player 1 fleet size: " + BattleShip.player1Data.shipsLeft());
+//                            System.out.print("\nSuccess for Player2! Hit at (X: " + x + " Y: " + y + ")");
+//                            System.out.print("Player 1 fleet size: " + BattleShip.player1Data.shipsLeft());
 
                         } else {
                             panel.setBackground(Color.WHITE);
                         }
 
-                        boolean isSunk = BattleShip.player1Data.isSunk(hit);
+                        boolean isSunk = battleShip.getPlayer1Data().isSunk(hit);
                         if (isSunk) {
                             enemyShipSunkPlayer2++;
-                            BattleShip.player2.enemyShipSunk.setText(Integer.toString(enemyShipSunkPlayer2));
+                            battleShip.getPlayer2().enemyShipSunk.setText(Integer.toString(enemyShipSunkPlayer2));
                             JOptionPane.showMessageDialog(panel, "Player's 1 ship was sunk! Congratulations!");
-                            String ownShipSunkPlayer1 = Integer.toString(BattleShip.player1Data.getNumberOfOwnShipSunk());
-                            BattleShip.player1.ownShipSunk.setText(ownShipSunkPlayer1);
+                            String ownShipSunkPlayer1 = Integer.toString(battleShip.getPlayer1Data().getNumberOfOwnShipSunk());
+                            battleShip.getPlayer1().ownShipSunk.setText(ownShipSunkPlayer1);
                         }
 
-                        boolean lost = BattleShip.player1Data.isPlayerLost();
+                        boolean lost = battleShip.getPlayer1Data().isPlayerLost();
                         if (lost) {
-                            JOptionPane.showMessageDialog(panel, "You(player 2) WON! Congratulations!");
+                            battleShip.setState(battleShip.getEndOfTheGame());
+                            JOptionPane.showMessageDialog(panel, "You(player 2) WON! Congratulations!\nClick OK will Exit the game");
+                            battleShip.player2turn();
                         }
                     }
 

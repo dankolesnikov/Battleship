@@ -100,7 +100,7 @@ public class PlayerData {
     // Creates a new ship and adds to the fleet array
     public void addShip(Coordinate a,Coordinate b,Coordinate c){
         if(isOvelap(a,b,c)){
-           System.out.print("Overlap");
+            System.out.print("Overlap");
         }
         else if(fleet.size()==5){
             System.out.print("Fleet is full");

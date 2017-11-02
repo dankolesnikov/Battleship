@@ -22,22 +22,25 @@ import danil.BattleGrid;
  */
 public class SelfGrid extends BattleGrid {
     private String gridType = "selfGrid";
-    private boolean isSelfGridListener=true;
+    private boolean isSelfGridListener;
+    private int NUMBER_OF_SHIP = 5;
+    private int count = 0;
     private String name;
     private Point firstPoint = new Point(0,0);
-    private JPanel firstCell = null;
     private Point secondNextPoint = new Point(0,0);
     private JPanel secondNextCell = null;
     private Point thirdNextPoint = new Point(0,0);
     private JPanel thirdNextCell = null;
+    private BattleShip battleShip;
     private JPanel thePanel = null;
 
 
-    public SelfGrid(String name) {
+    public SelfGrid(String name,BattleShip battleShip) {
         super();
         this.name = name;
-
+        this.battleShip = battleShip;
     }
+
     public void getJpanel(Point newPoint){
         thePanel = this.getComponentAt(newPoint);
     }
@@ -86,11 +89,11 @@ public class SelfGrid extends BattleGrid {
                     getComp3(thirdNextPoint);
 
                     if(name.equals("Player1")){
-                        BattleShip.player1Data.addShip(a,b,c); // Create new ship object
+                        battleShip.getPlayer1Data().addShip(a,b,c); // Create new ship object
                         draw();
                     }
                     if(name.equals("Player2")){
-                        BattleShip.player2Data.addShip(a,b,c); // Create new ship object
+                        battleShip.getPlayer2Data().addShip(a,b,c); // Create new ship object
                         draw();
                     }
                 }
@@ -109,15 +112,18 @@ public class SelfGrid extends BattleGrid {
         int x = (int) tempX;
         return x;
     }
+    public void setSelfGridListener (boolean selfGridListener){
+        this.isSelfGridListener = selfGridListener;
+    }
 
     public void draw(){
 
         int[][] temp=null;
         if(name.equals("Player1")){
-            temp = BattleShip.player1Data.getSelfData();
+            temp = battleShip.getPlayer1Data().getSelfData();
         }
         else if(name.equals("Player2")){
-            temp = BattleShip.player2Data.getSelfData();
+            temp = battleShip.getPlayer2Data().getSelfData();
         }
 
         for (int i = 0; i < 11; i++) {
@@ -139,9 +145,6 @@ public class SelfGrid extends BattleGrid {
         return temp;
     }
 
-    public void setSelfGridListener (boolean selfGridListener){
-        this.isSelfGridListener = selfGridListener;
-    }
 
     public boolean getSelfGridListener() {
         return isSelfGridListener;
@@ -149,5 +152,4 @@ public class SelfGrid extends BattleGrid {
     public String getGridType(){
         return gridType;
     }
-
 }

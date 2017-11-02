@@ -14,16 +14,17 @@ public class PlayerScreen extends JFrame {
     int size;
     boolean isbeginningOfTheGameOfPlayer1 = true;
     boolean isbeginningOfTheGameOfPlayer2 = true;
-
+    BattleShip battleShip;
     JLabel ownShipSunk;
     JLabel shipBeginning;
     JLabel enemyShipSunk;
 
-    public PlayerScreen(String name, boolean show) {
+    public PlayerScreen(String name, boolean show,BattleShip battleShip) {
         super(name);
+        this.battleShip = battleShip;
         this.setLayout(new BorderLayout());
-        this.add(new SelfGrid(name), BorderLayout.EAST);
-        this.add(new AttackGrid(name), BorderLayout.WEST);
+        this.add(new SelfGrid(name,battleShip), BorderLayout.EAST);
+        this.add(new AttackGrid(name,battleShip), BorderLayout.WEST);
         this.add(new JLabel(name), BorderLayout.NORTH);
 
         JButton next = new JButton("next");
@@ -56,22 +57,28 @@ public class PlayerScreen extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 if(name.equals("Player1")){
-                    size = BattleShip.player1Data.getFleet().size();
+                    size = battleShip.getPlayer1Data().getFleet().size();
                     if(isbeginningOfTheGameOfPlayer1){
                         shipBeginning.setText(Integer.toString(size));
                         isbeginningOfTheGameOfPlayer1 = false;
                     }
+                    if(!isbeginningOfTheGameOfPlayer1){
+                        battleShip.player1Turn();
+                    }
                     hideScreen();
-                    BattleShip.getPlayer2().showScreen();
+                    battleShip.getPlayer2().showScreen();
                 }
                 if(name.equals("Player2")){
-                    size = BattleShip.player2Data.getFleet().size();
+                    size = battleShip.getPlayer2Data().getFleet().size();
                     if(isbeginningOfTheGameOfPlayer2){
                         shipBeginning.setText(Integer.toString(size));
                         isbeginningOfTheGameOfPlayer2 = false;
                     }
+                    if(!isbeginningOfTheGameOfPlayer2){
+                        battleShip.player2turn();
+                    }
                     hideScreen();
-                    BattleShip.getPlayer1().showScreen();
+                    battleShip.getPlayer1().showScreen();
                 }
             }
         });
@@ -92,21 +99,18 @@ public class PlayerScreen extends JFrame {
     }
 
     public SelfGrid getSelfGrid(){
-        int i = 0;
-        for(Component child : this.getComponents()){
-            i++;
+
+        for(Component child : this.getContentPane().getComponents()){
+
             if(child instanceof SelfGrid ){
-                System.out.println("inside getselfgrid");
                 return (SelfGrid)child;
             }
-            System.out.println("**********Number of component " + i);
-
-
         }
         return null;
     }
+
     public AttackGrid getAttackGrid(){
-        for(Component child : this.getComponents()){
+        for(Component child : this.getContentPane().getComponents()){
             if(child instanceof AttackGrid ){
                 return (AttackGrid) child;
             }
@@ -114,5 +118,16 @@ public class PlayerScreen extends JFrame {
         }
         return null;
     }
+    public JButton getNextButton(){
+        for(Component child : this.getContentPane().getComponents()){
+            if(child instanceof JButton ){
+                return (JButton) child;
+            }
 
+        }
+        return null;
+    }
+    public boolean getIsbeginningOfTheGameOfPlayer2() {
+        return isbeginningOfTheGameOfPlayer2;
+    }
 }

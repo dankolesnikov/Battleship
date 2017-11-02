@@ -12,27 +12,28 @@ public class BattleShip implements GameState {
     private GameState endOfTheGame;
     private GameState state;
 
-    static PlayerData player1Data = new PlayerData();
-    static PlayerData player2Data = new PlayerData();
-    static PlayerScreen player1 = new PlayerScreen("Player1", true);
-    static PlayerScreen player2 = new PlayerScreen("Player2", false);
+    private PlayerData player1Data = new PlayerData();
+    private PlayerData player2Data = new PlayerData();
+    private PlayerScreen player1 ;
+    private PlayerScreen player2;
 
     private BattleShip() {
+        player1 = new PlayerScreen("Player1", true,this);
+        player2 = new PlayerScreen("Player2", false,this);
         beginningOfTheGame = new BeginningOfTheGame(this, player1,player2);
-        middleOfTheGame = new MiddleOfTheGame(this);
-        endOfTheGame = new EndOfTheGame(this);
+        middleOfTheGame = new MiddleOfTheGame(this, player1,player2);
+        endOfTheGame = new EndOfTheGame(this, player1,player2);
 
         this.state = beginningOfTheGame;
     }
 
     public static void main(String[] args) {
         BattleShip game = new BattleShip();
+
         game.player1Turn();
         game.player2turn();
-        game.player1Turn();
-        game.player2turn();
-        game.player1Turn();
-        game.player2turn();
+
+
 
     }
 
@@ -79,12 +80,19 @@ public class BattleShip implements GameState {
         return this.state;
     }
 
+    public PlayerData getPlayer2Data() {
+        return player2Data;
+    }
 
-    static public PlayerScreen getPlayer1() {
+    public PlayerData getPlayer1Data() {
+        return player1Data;
+    }
+
+    public PlayerScreen getPlayer1() {
         return player1;
     }
 
-    static public PlayerScreen getPlayer2() {
+    public PlayerScreen getPlayer2() {
         return player2;
     }
 }
