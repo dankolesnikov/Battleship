@@ -85,8 +85,9 @@ public class PlayerData {
     }
 
     /* Methods called from SelfGrid class */
-
-    public void setSelfData(int x, int y){
+    public void setSelfData(Coordinate cord){
+        int x = cord.getX();
+        int y = cord.getY();
         if(selfData[x][y]==1){
             System.out.print("Overlap");
         }
@@ -95,9 +96,17 @@ public class PlayerData {
         }
     }
 
+    // Returns data from selfData 2D array
+    public int[][] getSelfData(){
+
+    }
+
     // Creates a new ship and adds to the fleet array
     public void addShip(Coordinate a,Coordinate b,Coordinate c){
         fleet.add(new Ship(a,b,c));
+        setSelfData(a);
+        setSelfData(b);
+        setSelfData(c);
     }
 
     // returns number of ships left

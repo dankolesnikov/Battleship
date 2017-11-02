@@ -43,6 +43,7 @@ public class AttackGrid extends BattleGrid {
 
                 if(name.equals("Player1")){
                     BattleShip.player1Data.setAttackData(x,y);
+
                     Coordinate hit = new Coordinate(x,y);
                     BattleShip.player2Data.attackShip(hit);
 
