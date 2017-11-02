@@ -52,7 +52,6 @@ public class PlayerData {
             }
             else{
                 i++; // increase the counter if the the ship i didn't contain a point
-
             }
         }
         return false; // must return false because
@@ -99,17 +98,71 @@ public class PlayerData {
 
     // Creates a new ship and adds to the fleet array
     public void addShip(Coordinate a,Coordinate b,Coordinate c){
-        if(isOvelap(a,b,c)){
-            System.out.print("Overlap");
-        }
-        else if(fleet.size()==5){
-            System.out.print("Fleet is full");
+        if(shipsLeft()==6||isEdge(a, b, c)){
+            System.out.print("Preventing adding a ship: fleet is full or user clicked too close to the edge");
         }
         else{
-            fleet.add(new Ship(a,b,c));
-            setSelfData(a,b,c);
+            if(isOvelap(a,b,c)){
+                System.out.print("Deleting horizontal ship and creating a new vertical ship");
+                deleteShip(a,b,c);
+                addVerticalShip(a,b,c);
+            }
+            else{
+                System.out.print("Adding new ship");
+                fleet.add(new Ship(a,b,c));
+                setSelfData(a,b,c);
+            }
         }
     }
+
+    public boolean isEdge(Coordinate a,Coordinate b, Coordinate c){
+        if(a.getX()==10||a.getX()==9||b.getX()==10){
+            System.out.print("Edge");
+            return true;
+        }
+        return false;
+    }
+
+    public void deleteShip(Coordinate a, Coordinate b, Coordinate c){
+        Ship temp = new Ship(a, b, c);
+        // Traverse ArrayList fleet
+        for(int i=0; i<fleet.size();i++){
+            if(fleet.get(i)==temp){
+                fleet.remove(i);
+                System.out.print("Ship was deleted from fleet");
+            }
+        }
+        // Traverse 2D array selfData and change 1's to 0's
+        for (int i = 0; i < selfData.length; i++) {
+            for (int j = 0; j < selfData.length; j++) {
+                if(i==a.getX()&&j==a.getY()){
+                    System.out.print("Found 1st point");
+                }
+                if(i==b.getX()&&j==b.getY()){
+                    System.out.print("Found 2nd point");
+                    setCell(i,j,2);
+                }
+                if(i==c.getX()&&j==c.getY()){
+                    System.out.print("Found 3rd point");
+                    setCell(i,j,2);
+                }
+            }
+        }
+
+    }
+
+    public void setCell(int x, int y, int input){
+        selfData[x][y]=input;
+    }
+
+    public void addVerticalShip(Coordinate a, Coordinate b, Coordinate c){
+        Coordinate aNew  = new Coordinate(a.getX(),a.getY());
+        Coordinate bNew = new Coordinate(a.getX(), a.getY()+1);
+        Coordinate cNew = new Coordinate(a.getX(), a.getY()+2);
+        fleet.add(new Ship(aNew,bNew,cNew));
+        setSelfData(aNew,bNew,cNew);
+    }
+
     public int getDataFromCell(int x, int y){
         for (int i = 0; i < 11; i++) {
             for (int j = 0; j < 11; j++) {
@@ -159,10 +212,6 @@ public class PlayerData {
             return true;
         }
 
-        if(a.getX()==10||a.getX()==9||b.getX()==10){
-            System.out.print("Edge");
-            return true;
-        }
         return false;
     }
 

@@ -79,6 +79,9 @@ public class SelfGrid extends BattleGrid {
                     double yPos3 = (firstPoint.getY()/20+1);
                     int y3 = (int) yPos3;
 
+
+                    System.out.print("\nLocation (X: " + x + " Y: " + y + ")");
+
                     secondNextPoint = new Point((int)(firstPoint.getX()+20),(int)(firstPoint.getY()));
                     thirdNextPoint = new Point((int)(firstPoint.getX()+40),(int)(firstPoint.getY()));
                     Coordinate a = new Coordinate(x,y);
@@ -135,6 +138,13 @@ public class SelfGrid extends BattleGrid {
                     Point p = new Point(x,y);
                     getJpanel(p);
                     thePanel.setBackground(Color.CYAN);
+                }
+                else if(temp[i][j]==2){
+                    int x = numberToPanel(i);
+                    int y = numberToPanel(j);
+                    Point p = new Point(x,y);
+                    getJpanel(p);
+                    thePanel.setBackground(Color.black);
                 }
             }
         }
