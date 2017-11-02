@@ -21,8 +21,8 @@ import danil.BattleGrid;
  Represents the player's own grid
  */
 public class SelfGrid extends BattleGrid {
-    private int NUMBER_OF_SHIP = 5;
-    private int count = 0;
+    private String gridType = "selfGrid";
+    private boolean isSelfGridListener=true;
     private String name;
     private Point firstPoint = new Point(0,0);
     private JPanel firstCell = null;
@@ -59,41 +59,41 @@ public class SelfGrid extends BattleGrid {
         firstCell.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                if(isSelfGridListener) {
+                    firstPoint = firstCell.getLocation();
+                    double xPos = (firstPoint.getX()/20+1);
+                    int x = (int) xPos;
+                    double yPos = (firstPoint.getY()/20+1);
+                    int y = (int) yPos;
 
-                firstPoint = firstCell.getLocation();
-                double xPos = (firstPoint.getX()/20+1);
-                int x = (int) xPos;
-                double yPos = (firstPoint.getY()/20+1);
-                int y = (int) yPos;
+                    double xPos2 = (firstPoint.getX()/20+2);
+                    int x2 = (int) xPos2;
+                    double yPos2 = (firstPoint.getY()/20+1);
+                    int y2 = (int) yPos2;
 
-                double xPos2 = (firstPoint.getX()/20+2);
-                int x2 = (int) xPos2;
-                double yPos2 = (firstPoint.getY()/20+1);
-                int y2 = (int) yPos2;
+                    double xPos3 = (firstPoint.getX()/20+3);
+                    int x3 = (int) xPos3;
+                    double yPos3 = (firstPoint.getY()/20+1);
+                    int y3 = (int) yPos3;
 
-                double xPos3 = (firstPoint.getX()/20+3);
-                int x3 = (int) xPos3;
-                double yPos3 = (firstPoint.getY()/20+1);
-                int y3 = (int) yPos3;
+                    secondNextPoint = new Point((int)(firstPoint.getX()+20),(int)(firstPoint.getY()));
+                    thirdNextPoint = new Point((int)(firstPoint.getX()+40),(int)(firstPoint.getY()));
+                    Coordinate a = new Coordinate(x,y);
+                    Coordinate b = new Coordinate(x2,y2);
+                    Coordinate c = new Coordinate(x3,y3);
 
-                secondNextPoint = new Point((int)(firstPoint.getX()+20),(int)(firstPoint.getY()));
-                thirdNextPoint = new Point((int)(firstPoint.getX()+40),(int)(firstPoint.getY()));
-                Coordinate a = new Coordinate(x,y);
-                Coordinate b = new Coordinate(x2,y2);
-                Coordinate c = new Coordinate(x3,y3);
+                    getComp2(secondNextPoint);
+                    getComp3(thirdNextPoint);
 
-                getComp2(secondNextPoint);
-                getComp3(thirdNextPoint);
-
-                if(name.equals("Player1")){
-                    BattleShip.player1Data.addShip(a,b,c); // Create new ship object
-                    draw();
+                    if(name.equals("Player1")){
+                        BattleShip.player1Data.addShip(a,b,c); // Create new ship object
+                        draw();
+                    }
+                    if(name.equals("Player2")){
+                        BattleShip.player2Data.addShip(a,b,c); // Create new ship object
+                        draw();
+                    }
                 }
-                if(name.equals("Player2")){
-                    BattleShip.player2Data.addShip(a,b,c); // Create new ship object
-                    draw();
-                }
-
             }
         });
         return firstCell;
@@ -137,6 +137,17 @@ public class SelfGrid extends BattleGrid {
     public int numberToPanel(int s){
         int temp = (s-1)*20;
         return temp;
+    }
+
+    public void setSelfGridListener (boolean selfGridListener){
+        this.isSelfGridListener = selfGridListener;
+    }
+
+    public boolean getSelfGridListener() {
+        return isSelfGridListener;
+    }
+    public String getGridType(){
+        return gridType;
     }
 
 }

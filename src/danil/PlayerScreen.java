@@ -91,13 +91,28 @@ public class PlayerScreen extends JFrame {
         this.setVisible(false);
     }
 
-//    public SelfGrid getSelfGridPlayer1(){
-//        for(Component child : this.getComponents()){
-//            if(child.getName().equals("Player1") && ){
-//
-//            }
-//
-//        }
-//    }
+    public SelfGrid getSelfGrid(){
+        int i = 0;
+        for(Component child : this.getComponents()){
+            i++;
+            if(child instanceof SelfGrid ){
+                System.out.println("inside getselfgrid");
+                return (SelfGrid)child;
+            }
+            System.out.println("**********Number of component " + i);
+
+
+        }
+        return null;
+    }
+    public AttackGrid getAttackGrid(){
+        for(Component child : this.getComponents()){
+            if(child instanceof AttackGrid ){
+                return (AttackGrid) child;
+            }
+
+        }
+        return null;
+    }
 
 }

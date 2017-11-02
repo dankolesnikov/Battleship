@@ -18,7 +18,7 @@ public class BattleShip implements GameState {
     static PlayerScreen player2 = new PlayerScreen("Player2", false);
 
     private BattleShip() {
-        beginningOfTheGame = new BeginningOfTheGame(this);
+        beginningOfTheGame = new BeginningOfTheGame(this, player1,player2);
         middleOfTheGame = new MiddleOfTheGame(this);
         endOfTheGame = new EndOfTheGame(this);
 
