@@ -23,6 +23,24 @@ public class Ship {
         this.b = b;
         this.c = c;
     }
+    public boolean compareShip(Ship ship){
+        if(ship.getA().compareCoord(this.a) && ship.getB().compareCoord(this.b) && ship.getC().compareCoord(this.c)){
+            return true;
+        }
+        return false;
+    }
+
+    public Coordinate getA() {
+        return a;
+    }
+
+    public Coordinate getB() {
+        return b;
+    }
+
+    public Coordinate getC() {
+        return c;
+    }
 
     // Sets booleans to true if the
     public boolean isPointHit(Coordinate hit){

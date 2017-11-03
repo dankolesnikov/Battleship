@@ -11,12 +11,18 @@ import java.util.Iterator;
  */
 
 public class PlayerData {
+    private PlayerScreen player;
 
     private int[][] attackData = new int[11][11];
     private int[][] selfData = new int[11][11];
     private int numberOfShipSunk = 0;
 
     private ArrayList<Ship> fleet = new ArrayList<>();
+
+    PlayerData( PlayerScreen player){
+        this.player = player;
+
+    }
 
     /* Methods called from AttackGrid class */
 
@@ -98,20 +104,28 @@ public class PlayerData {
 
     // Creates a new ship and adds to the fleet array
     public void addShip(Coordinate a,Coordinate b,Coordinate c){
-        if(shipsLeft()==6||isEdge(a, b, c)){
+
+        if(isEdge(a, b, c)){
             System.out.print("Preventing adding a ship: fleet is full or user clicked too close to the edge");
         }
-        else{
-            if(isOvelap(a,b,c)){
-                System.out.print("Deleting horizontal ship and creating a new vertical ship");
-                deleteShip(a,b,c);
-                addVerticalShip(a,b,c);
-            }
-            else{
+        else {
+            if (isOvelap(a, b, c)) {  //MINH-BREAK ERROR WHICH GIVE 2 units ships
+                if(isOvelapAtRotatePoint(a,b,c)){
+                    System.out.print("Deleting horizontal ship and creating a new vertical ship");
+                    deleteShip(a, b, c);
+                    addVerticalShip(a, b, c);
+                }
+                else {
+                    System.out.print("not the right place to rotate");
+
+                }
+
+            } else if(shipsLeft() < 5){
                 System.out.print("Adding new ship");
-                fleet.add(new Ship(a,b,c));
-                setSelfData(a,b,c);
+                fleet.add(new Ship(a, b, c));
+                setSelfData(a, b, c);
             }
+
         }
     }
 
@@ -127,24 +141,28 @@ public class PlayerData {
         Ship temp = new Ship(a, b, c);
         // Traverse ArrayList fleet
         for(int i=0; i<fleet.size();i++){
-            if(fleet.get(i)==temp){
+            if(fleet.get(i).compareShip(temp)){
                 fleet.remove(i);
-                System.out.print("Ship was deleted from fleet");
+                System.out.print("\nShip was deleted from fleet");
             }
         }
         // Traverse 2D array selfData and change 1's to 0's
         for (int i = 0; i < selfData.length; i++) {
             for (int j = 0; j < selfData.length; j++) {
                 if(i==a.getX()&&j==a.getY()){
-                    System.out.print("Found 1st point");
+                    System.out.print("\nFound 1st point");
+                    player.getSelfGrid().drawBlack(i,j);
+                    setCell(i,j,0);
                 }
                 if(i==b.getX()&&j==b.getY()){
                     System.out.print("Found 2nd point");
-                    setCell(i,j,2);
+                    player.getSelfGrid().drawBlack(i,j);
+                    setCell(i,j,0);
                 }
                 if(i==c.getX()&&j==c.getY()){
                     System.out.print("Found 3rd point");
-                    setCell(i,j,2);
+                    player.getSelfGrid().drawBlack(i,j);
+                    setCell(i,j,0);
                 }
             }
         }
@@ -156,11 +174,14 @@ public class PlayerData {
     }
 
     public void addVerticalShip(Coordinate a, Coordinate b, Coordinate c){
-        Coordinate aNew  = new Coordinate(a.getX(),a.getY());
-        Coordinate bNew = new Coordinate(a.getX(), a.getY()+1);
-        Coordinate cNew = new Coordinate(a.getX(), a.getY()+2);
-        fleet.add(new Ship(aNew,bNew,cNew));
-        setSelfData(aNew,bNew,cNew);
+
+        Coordinate aNew = new Coordinate(a.getX(), a.getY());
+        Coordinate bNew = new Coordinate(a.getX(), a.getY() + 1);
+        Coordinate cNew = new Coordinate(a.getX(), a.getY() + 2);
+
+        fleet.add(new Ship(aNew, bNew, cNew));
+        setSelfData(aNew, bNew, cNew);
+
     }
 
     public int getDataFromCell(int x, int y){
@@ -173,6 +194,89 @@ public class PlayerData {
         }
         return -1;
     }
+    public boolean isOvelapAtTail(Coordinate a, Coordinate b, Coordinate c){
+        boolean isA = false;
+        boolean isB = false;
+        boolean isC = false;
+
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 11; j++)
+            {
+                if((a.getX()==i&&a.getY()==j)){
+                    if(getDataFromCell(i,j) == 1){
+                        isA = true;
+                    }
+                    else{
+                        isA = false;
+                    }
+                }
+                if(b.getX()==i&&b.getY()==j){
+                    if(getDataFromCell(i,j) == 1){
+                        isB = true;
+                    }
+                    else{
+                        isB = false;
+                    }
+                }
+                if(c.getX()==i&&c.getY()==j){
+                    if(getDataFromCell(i,j) == 1){
+                        isC = true;
+                    }
+                    else{
+                        isC = false;
+                    }
+                }
+            }
+        }
+
+        if(isB || isC){
+            return true;
+        }
+
+        return false;
+    }
+    public boolean isOvelapAtRotatePoint(Coordinate a, Coordinate b, Coordinate c){
+        boolean isA = false;
+        boolean isB = false;
+        boolean isC = false;
+
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 11; j++)
+            {
+                if((a.getX()==i&&a.getY()==j)){
+                    if(getDataFromCell(i,j) == 1){
+                        isA = true;
+                    }
+                    else{
+                        isA = false;
+                    }
+                }
+                if(b.getX()==i&&b.getY()==j){
+                    if(getDataFromCell(i,j) == 1){
+                        isB = true;
+                    }
+                    else{
+                        isB = false;
+                    }
+                }
+                if(c.getX()==i&&c.getY()==j){
+                    if(getDataFromCell(i,j) == 1){
+                        isC = true;
+                    }
+                    else{
+                        isC = false;
+                    }
+                }
+            }
+        }
+
+        if(isA){
+            return true;
+        }
+
+        return false;
+    }
+
     public boolean isOvelap(Coordinate a, Coordinate b, Coordinate c){
         boolean isA = false;
         boolean isB = false;

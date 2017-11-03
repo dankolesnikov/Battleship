@@ -12,14 +12,16 @@ public class BattleShip implements GameState {
     private GameState endOfTheGame;
     private GameState state;
 
-    private PlayerData player1Data = new PlayerData();
-    private PlayerData player2Data = new PlayerData();
+    private PlayerData player1Data;
+    private PlayerData player2Data;
     private PlayerScreen player1 ;
     private PlayerScreen player2;
 
     private BattleShip() {
         player1 = new PlayerScreen("Player1", true,this);
         player2 = new PlayerScreen("Player2", false,this);
+        player1Data = new PlayerData(player1);
+        player2Data = new PlayerData(player2);
         beginningOfTheGame = new BeginningOfTheGame(this, player1,player2);
         middleOfTheGame = new MiddleOfTheGame(this, player1,player2);
         endOfTheGame = new EndOfTheGame(this, player1,player2);
@@ -29,12 +31,8 @@ public class BattleShip implements GameState {
 
     public static void main(String[] args) {
         BattleShip game = new BattleShip();
-
         game.player1Turn();
         game.player2turn();
-
-
-
     }
 
     public void player1Turn() {

@@ -135,21 +135,29 @@ public class SelfGrid extends BattleGrid {
                 if(temp[i][j]==1){
                     int x = numberToPanel(i);
                     int y = numberToPanel(j);
+                    int newX = 20*(x-1);
+                    int newY = 20*(y-1);
                     Point p = new Point(x,y);
                     getJpanel(p);
                     thePanel.setBackground(Color.CYAN);
                 }
-                else if(temp[i][j]==2){
-                    int x = numberToPanel(i);
-                    int y = numberToPanel(j);
-                    Point p = new Point(x,y);
-                    getJpanel(p);
-                    thePanel.setBackground(Color.black);
-                }
+//                else if(temp[i][j]==0){
+//                    int x = numberToPanel(i);
+//                    int y = numberToPanel(j);
+//                    Point p = new Point(x,y);
+//                    getJpanel(p);
+//                    thePanel.setBackground(Color.black);
+//                }
             }
         }
     }
-
+    public void drawBlack(int x, int y){
+        int newX = 20*(x-1);
+        int newY = 20*(y-1);
+        Point p = new Point(newX,newY);
+        getJpanel(p);
+        thePanel.setBackground(Color.black);
+    }
     public int numberToPanel(int s){
         int temp = (s-1)*20;
         return temp;
