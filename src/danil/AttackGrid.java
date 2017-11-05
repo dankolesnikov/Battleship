@@ -52,7 +52,7 @@ public class AttackGrid extends BattleGrid {
 
                     if (name.equals("Player1")) {
                         if(!battleShip.getTakeTurnAttack()) {
-
+                            battleShip.setTakeTurnAttack(true);
                             Coordinate hit = new Coordinate(x, y);
                             battleShip.getPlayer2Data().attackShip(hit);
 
@@ -86,12 +86,13 @@ public class AttackGrid extends BattleGrid {
                         }
                         if (name.equals("Player2")) {
                             if(battleShip.getTakeTurnAttack()) {
-
+                                battleShip.setTakeTurnAttack(false);
                                 Coordinate hit = new Coordinate(x, y);
                                 battleShip.getPlayer1Data().attackShip(hit);
 
                                 boolean success = battleShip.getPlayer1Data().isHit(hit);
                                 if (success) {
+                                    System.out.print("player2 attack");
                                     battleShip.getPlayer2Data().setAttackData(x, y, "success");
                                     draw();
                                 } else {
@@ -158,7 +159,7 @@ public class AttackGrid extends BattleGrid {
                     int x = numberToPanel(i);
                     int y = numberToPanel(j);
 
-                    Point p = new Point(Math.abs(x),Math.abs(y));
+                    Point p = new Point(x,y);
                     getJpanel(p);
                     thePanel.setBackground(Color.WHITE);
 

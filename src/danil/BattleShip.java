@@ -25,7 +25,7 @@ public class BattleShip implements GameState {
         player2Data = new PlayerData(player2);
         beginningOfTheGame = new BeginningOfTheGame(this, player1,player2);
         middleOfTheGame = new MiddleOfTheGame(this, player1,player2);
-        endOfTheGame = new EndOfTheGame(this, player1,player2);
+        endOfTheGame = new EndOFTheGame(this, player1,player2);
         this.state = beginningOfTheGame; //set the state of the game to be the beginning of the game
     }
 
