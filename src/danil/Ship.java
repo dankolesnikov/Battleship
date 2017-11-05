@@ -23,6 +23,8 @@ public class Ship {
         this.b = b;
         this.c = c;
     }
+
+    //compare ships to check if they are the same
     public boolean compareShip(Ship ship){
         if(ship.getA().compareCoord(this.a) && ship.getB().compareCoord(this.b) && ship.getC().compareCoord(this.c)){
             return true;
@@ -56,6 +58,7 @@ public class Ship {
         return false;
     }
 
+    //call hit to attack the ship
     public void Hit(Coordinate hit){
         if(hit.getY() == a.getY() && hit.getX() == a.getX()){
             aHit =true;
@@ -68,6 +71,7 @@ public class Ship {
         }
     }
 
+    //check if the ship is sunk
     public boolean isShipSunk(){
         if(aHit && bHit && cHit){
             return true;

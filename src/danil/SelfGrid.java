@@ -32,7 +32,7 @@ public class SelfGrid extends BattleGrid {
     private Point thirdNextPoint = new Point(0,0);
     private JPanel thirdNextCell = null;
     private BattleShip battleShip;
-    private JPanel thePanel = null;
+    private JPanel thePanel = new JPanel();
 
 
     public SelfGrid(String name,BattleShip battleShip) {
@@ -55,9 +55,9 @@ public class SelfGrid extends BattleGrid {
     {
 
         JPanel firstCell = new JPanel();
-        firstCell.setBackground(Color.black);
         firstCell.setBorder(BorderFactory.createLineBorder(Color.blue, 2));
         firstCell.setPreferredSize(new Dimension(20, 20)); // for demo purposes only
+        firstCell.setBackground(Color.black);
 
         firstCell.addMouseListener(new MouseAdapter() {
             @Override
@@ -104,22 +104,12 @@ public class SelfGrid extends BattleGrid {
         });
         return firstCell;
     }
-
-    public int panelXToNumber(Point p){
-        double tempX = p.getLocation().getX()/20+1;
-        int x = (int) tempX;
-        return x;
-    }
-    public int panelYToNumber(Point p){
-        double tempX = p.getLocation().getY()/20+1;
-        int x = (int) tempX;
-        return x;
-    }
     public void setSelfGridListener (boolean selfGridListener){
         this.isSelfGridListener = selfGridListener;
     }
 
     public void draw(){
+
 
         int[][] temp=null;
         if(name.equals("Player1")){
@@ -135,28 +125,24 @@ public class SelfGrid extends BattleGrid {
                 if(temp[i][j]==1){
                     int x = numberToPanel(i);
                     int y = numberToPanel(j);
-                    int newX = 20*(x-1);
-                    int newY = 20*(y-1);
+
                     Point p = new Point(x,y);
                     getJpanel(p);
                     thePanel.setBackground(Color.CYAN);
                 }
-//                else if(temp[i][j]==0){
-//                    int x = numberToPanel(i);
-//                    int y = numberToPanel(j);
-//                    Point p = new Point(x,y);
-//                    getJpanel(p);
-//                    thePanel.setBackground(Color.black);
-//                }
+               if(temp[i][j]==0){
+                   int x = numberToPanel(i);
+                   int y = numberToPanel(j);
+                   System.out.println("\ninside black "+x +"      "+ y);
+
+                   Point p = new Point(Math.abs(x),Math.abs(y));
+                   getJpanel(p);
+
+                   thePanel.setBackground(Color.BLACK);
+
+                }
             }
         }
-    }
-    public void drawBlack(int x, int y){
-        int newX = 20*(x-1);
-        int newY = 20*(y-1);
-        Point p = new Point(newX,newY);
-        getJpanel(p);
-        thePanel.setBackground(Color.black);
     }
     public int numberToPanel(int s){
         int temp = (s-1)*20;

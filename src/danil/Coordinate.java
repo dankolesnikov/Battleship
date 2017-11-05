@@ -22,6 +22,7 @@ public class Coordinate {
         return y;
     }
 
+    //compare coordinate objects
     public boolean compareCoord(Coordinate coordinate){
         if(coordinate.getX() == this.x && coordinate.getY() == this.y){
             return true;
@@ -30,7 +31,7 @@ public class Coordinate {
     }
 
     public String toString(){
-        return "X=" + x + " and Y=" + y;
+        return "\nX=" + x + " and Y=" + y;
     }
 
 }

@@ -12,11 +12,9 @@ import java.util.Iterator;
 
 public class PlayerData {
     private PlayerScreen player;
-
     private int[][] attackData = new int[11][11];
     private int[][] selfData = new int[11][11];
     private int numberOfShipSunk = 0;
-
     private ArrayList<Ship> fleet = new ArrayList<>();
 
     PlayerData( PlayerScreen player){
@@ -24,19 +22,61 @@ public class PlayerData {
 
     }
 
-    /* Methods called from AttackGrid class */
+    /*All the adding and deleting data methods */
 
-    // setAttackData sets 2D array attackData based on input x,y coordinates
-    public void setAttackData(int x, int y) {
-        attackData[x][y] = 1;
+    // Creates a new ship and adds vertical or horizontal ship to the fleet array
+    public void addShip(Coordinate a,Coordinate b,Coordinate c){
+
+        if(isEdge(a, b, c)){
+            System.out.print("\nPreventing adding a ship: fleet is full or user clicked too close to the edge");
+        }
+        else {
+            if (isOvelap(a, b, c) ) {
+                if(isOvelapAtRotatePoint(a,b,c) && !isShipCollision(a,b,c)){
+                    addVerticalShip(a, b, c);
+                }
+                else {
+                    System.out.print("\nyou should only click first block to rotate");
+                }
+
+            } else if(shipsLeft() < 5){
+                fleet.add(new Ship(a, b, c));
+                setSelfData(a, b, c);
+            }
+        }
     }
 
-    public int getNumberOfOwnShipSunk() {
-        return numberOfShipSunk;
+    //remove ship from fleet array
+    public void deleteShip(Coordinate a, Coordinate b, Coordinate c) {
+        Ship temp = new Ship(a, b, c);
+        for (int i = 0; i < fleet.size(); i++) {
+            if (fleet.get(i).compareShip(temp)) {
+                fleet.remove(i);
+            }
+        }
     }
 
-    public ArrayList<Ship> getFleet(){
-        return fleet;
+    //remove ships from selfData table
+    public void deleteShipInSelfGrid(Coordinate a, Coordinate b, Coordinate c) {
+        selfData[a.getX()][a.getY()]=0;
+        selfData[b.getX()][b.getY()]=0;
+        selfData[c.getX()][c.getY()]=0;
+    }
+
+    //add ships to selfData table
+    public void addShipInSelfGrid(Coordinate a, Coordinate b, Coordinate c) {
+        selfData[a.getX()][a.getY()]=1;
+        selfData[b.getX()][b.getY()]=1;
+        selfData[c.getX()][c.getY()]=1;
+    }
+
+    //add ship vertically to selfData and fleet of ships
+    public void addVerticalShip(Coordinate a, Coordinate b, Coordinate c){
+        Coordinate aNew = new Coordinate(a.getX(), a.getY());
+        Coordinate bNew = new Coordinate(a.getX(), a.getY() + 1);
+        Coordinate cNew = new Coordinate(a.getX(), a.getY() + 2);
+        fleet.add(new Ship(aNew, bNew, cNew));
+        setSelfData(aNew, bNew, cNew);
     }
 
     // attackShip searched goes through the array and tries to attack every point of every ship. If there is a match it will be marked in the ship object
@@ -48,12 +88,63 @@ public class PlayerData {
         }
     }
 
+    // returns number of ships left
+    public int shipsLeft(){
+        int temp = fleet.size();
+        return temp;
+    }
+
+    /*All the setter methods */
+    public void setAttackData(int x, int y, String result) {
+        if(result.equals("success")){
+            attackData[x][y] = 1;
+        }
+        else if(result.equals("failure")){
+            attackData[x][y] = 2;
+        }
+    }
+
+
+    public void setSelfData(Coordinate a, Coordinate b, Coordinate c){
+        selfData[a.getX()][a.getY()]=1;
+        selfData[b.getX()][b.getY()]=1;
+        selfData[c.getX()][c.getY()]=1;
+    }
+
+    /*All the getter methods */
+    public int getNumberOfOwnShipSunk() {
+        return numberOfShipSunk;
+    }
+
+    public ArrayList<Ship> getFleet(){
+        return fleet;
+    }
+
+    public int[][] getSelfData(){
+        return selfData;
+    }
+    public int[][] getAttackData(){
+        return attackData;
+    }
+
+    public int getDataFromCell(int x, int y){
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 11; j++) {
+                if(i == x && j ==y){
+                    return selfData[i][j];
+                }
+            }
+        }
+        return -1;
+    }
+
+    /*All the boolean methods to check for state*/
+
     // isHit returns true if there is a ship at the point that was hit
     public boolean isHit(Coordinate point){
         for (int i=0;i<fleet.size();){
             Ship temp = fleet.get(i);
             if(temp.isPointHit(point)){
-                System.out.print("Point was hit!");
                 return true;
             }
             else{
@@ -80,7 +171,6 @@ public class PlayerData {
             if(temp.isShipSunk()){
                 numberOfShipSunk++;
                 fleet.remove(i);
-                System.out.println("\nShip sunk! "+shipsLeft() + " more ship to go");
                 return true;
             }
             else{
@@ -90,151 +180,7 @@ public class PlayerData {
         return false;
     }
 
-    /* Methods called from SelfGrid class */
-    public void setSelfData(Coordinate a, Coordinate b, Coordinate c){
-        selfData[a.getX()][a.getY()]=1;
-        selfData[b.getX()][b.getY()]=1;
-        selfData[c.getX()][c.getY()]=1;
-    }
-
-    // Returns data from selfData 2D array
-    public int[][] getSelfData(){
-        return selfData;
-    }
-
-    // Creates a new ship and adds to the fleet array
-    public void addShip(Coordinate a,Coordinate b,Coordinate c){
-
-        if(isEdge(a, b, c)){
-            System.out.print("Preventing adding a ship: fleet is full or user clicked too close to the edge");
-        }
-        else {
-            if (isOvelap(a, b, c)) {  //MINH-BREAK ERROR WHICH GIVE 2 units ships
-                if(isOvelapAtRotatePoint(a,b,c)){
-                    System.out.print("Deleting horizontal ship and creating a new vertical ship");
-                    deleteShip(a, b, c);
-                    addVerticalShip(a, b, c);
-                }
-                else {
-                    System.out.print("not the right place to rotate");
-
-                }
-
-            } else if(shipsLeft() < 5){
-                System.out.print("Adding new ship");
-                fleet.add(new Ship(a, b, c));
-                setSelfData(a, b, c);
-            }
-
-        }
-    }
-
-    public boolean isEdge(Coordinate a,Coordinate b, Coordinate c){
-        if(a.getX()==10||a.getX()==9||b.getX()==10){
-            System.out.print("Edge");
-            return true;
-        }
-        return false;
-    }
-
-    public void deleteShip(Coordinate a, Coordinate b, Coordinate c){
-        Ship temp = new Ship(a, b, c);
-        // Traverse ArrayList fleet
-        for(int i=0; i<fleet.size();i++){
-            if(fleet.get(i).compareShip(temp)){
-                fleet.remove(i);
-                System.out.print("\nShip was deleted from fleet");
-            }
-        }
-        // Traverse 2D array selfData and change 1's to 0's
-        for (int i = 0; i < selfData.length; i++) {
-            for (int j = 0; j < selfData.length; j++) {
-                if(i==a.getX()&&j==a.getY()){
-                    System.out.print("\nFound 1st point");
-                    player.getSelfGrid().drawBlack(i,j);
-                    setCell(i,j,0);
-                }
-                if(i==b.getX()&&j==b.getY()){
-                    System.out.print("Found 2nd point");
-                    player.getSelfGrid().drawBlack(i,j);
-                    setCell(i,j,0);
-                }
-                if(i==c.getX()&&j==c.getY()){
-                    System.out.print("Found 3rd point");
-                    player.getSelfGrid().drawBlack(i,j);
-                    setCell(i,j,0);
-                }
-            }
-        }
-
-    }
-
-    public void setCell(int x, int y, int input){
-        selfData[x][y]=input;
-    }
-
-    public void addVerticalShip(Coordinate a, Coordinate b, Coordinate c){
-
-        Coordinate aNew = new Coordinate(a.getX(), a.getY());
-        Coordinate bNew = new Coordinate(a.getX(), a.getY() + 1);
-        Coordinate cNew = new Coordinate(a.getX(), a.getY() + 2);
-
-        fleet.add(new Ship(aNew, bNew, cNew));
-        setSelfData(aNew, bNew, cNew);
-
-    }
-
-    public int getDataFromCell(int x, int y){
-        for (int i = 0; i < 11; i++) {
-            for (int j = 0; j < 11; j++) {
-                if(i == x && j ==y){
-                    return selfData[i][j];
-                }
-            }
-        }
-        return -1;
-    }
-    public boolean isOvelapAtTail(Coordinate a, Coordinate b, Coordinate c){
-        boolean isA = false;
-        boolean isB = false;
-        boolean isC = false;
-
-        for (int i = 0; i < 11; i++) {
-            for (int j = 0; j < 11; j++)
-            {
-                if((a.getX()==i&&a.getY()==j)){
-                    if(getDataFromCell(i,j) == 1){
-                        isA = true;
-                    }
-                    else{
-                        isA = false;
-                    }
-                }
-                if(b.getX()==i&&b.getY()==j){
-                    if(getDataFromCell(i,j) == 1){
-                        isB = true;
-                    }
-                    else{
-                        isB = false;
-                    }
-                }
-                if(c.getX()==i&&c.getY()==j){
-                    if(getDataFromCell(i,j) == 1){
-                        isC = true;
-                    }
-                    else{
-                        isC = false;
-                    }
-                }
-            }
-        }
-
-        if(isB || isC){
-            return true;
-        }
-
-        return false;
-    }
+    // check if the click to rotate is at the right place which is the the first cell
     public boolean isOvelapAtRotatePoint(Coordinate a, Coordinate b, Coordinate c){
         boolean isA = false;
         boolean isB = false;
@@ -269,14 +215,48 @@ public class PlayerData {
                 }
             }
         }
-
-        if(isA){
+        if(isA && isB && isC){
             return true;
         }
-
         return false;
     }
 
+    //check if the ship is placed outside the grid
+    public boolean isEdge(Coordinate a,Coordinate b, Coordinate c){
+        if(a.getX()==11||b.getX()==11||c.getX()==11 ||a.getY()==11||b.getY()==11||c.getY()==11){
+            return true;
+        }
+        return false;
+    }
+
+    // check for ships collision when ship is rotated
+    public boolean isShipCollision (Coordinate a, Coordinate b, Coordinate c){
+        deleteShip(a,b,c);
+        deleteShipInSelfGrid(a,b,c);
+
+        Coordinate aNew = new Coordinate(a.getX(), a.getY());
+        Coordinate bNew = new Coordinate(a.getX(), a.getY() + 1);
+        Coordinate cNew = new Coordinate(a.getX(), a.getY() + 2);
+
+        if(isEdge(aNew,bNew,cNew)){
+            addShip(a,b,c);
+            addShipInSelfGrid(a,b,c);
+            return true;
+        }
+
+        for (int i = 0; i < fleet.size(); i++) {
+            if(fleet.get(i).getA().compareCoord(bNew) || fleet.get(i).getB().compareCoord(bNew) || fleet.get(i).getC().compareCoord(bNew) ||
+                    fleet.get(i).getA().compareCoord(cNew) || fleet.get(i).getB().compareCoord(cNew) || fleet.get(i).getC().compareCoord(cNew)){
+                addShip(a,b,c);
+                addShipInSelfGrid(a,b,c);
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    // check for ships overlap with clicks
     public boolean isOvelap(Coordinate a, Coordinate b, Coordinate c){
         boolean isA = false;
         boolean isB = false;
@@ -311,28 +291,12 @@ public class PlayerData {
                 }
             }
         }
-
         if(isA || isB || isC){
             return true;
         }
-
         return false;
     }
 
-    // returns number of ships left
-    public int shipsLeft(){
-        int temp = fleet.size();
-        return temp;
-    }
-    // returns the fleet
-    public void printFleet(){
-        System.out.print("printFleet called");
-        Iterator itr2 = fleet.iterator();
-        while (itr2.hasNext()){
-            Ship temp = (Ship)itr2.next();
-            //System.out.println(temp.printShip());
-        }
-    }
 
 
     /* For Debugging */
