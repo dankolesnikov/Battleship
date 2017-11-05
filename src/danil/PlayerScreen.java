@@ -24,7 +24,7 @@ public class PlayerScreen extends JFrame {
         this.battleShip = battleShip;
         this.setLayout(new BorderLayout());
         this.add(new SelfGrid(name,battleShip), BorderLayout.EAST);
-        this.add(new AttackGrid(name,battleShip), BorderLayout.WEST);
+        this.add(new AttackGrid(name,battleShip,this), BorderLayout.WEST);
         this.add(new JLabel(name), BorderLayout.NORTH);
 
         JButton next = new JButton("next");

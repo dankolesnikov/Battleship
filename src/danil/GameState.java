@@ -7,6 +7,8 @@ package danil;
  */
 
 public interface GameState {
-    public void player1Turn ();
-    public void player2turn ();
+    //method for player1 turn to play
+    void player1Turn ();
+    //method for player1 turn to play
+    void player2turn ();
 }
