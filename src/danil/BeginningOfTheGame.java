@@ -17,16 +17,14 @@ public class BeginningOfTheGame implements GameState {
         this.battleShip = battleShip;
     }
 
+    //turn ON SelfGrid for player 1
     public void player1Turn (){
-        //player2.getSelfGrid().setSelfGridListener(true);
         player1.getSelfGrid().setSelfGridListener(true);
-
-        System.out.println("Begginng of the Game for player 1");
     }
+
+    //turn OFF SelfGrid for player 2
     public void player2turn (){
         player2.getSelfGrid().setSelfGridListener(true);
-
-        System.out.println("Begginng of the Game for player 2");
         battleShip.setState(battleShip.getMiddleOfTheGame());
     }
 

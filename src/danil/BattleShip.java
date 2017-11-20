@@ -7,34 +7,32 @@ package danil;
  */
 
 public class BattleShip implements GameState {
-    private GameState beginningOfTheGame;
-    private GameState middleOfTheGame;
-    private GameState endOfTheGame;
+    private GameState beginningOfTheGame; //begin of the game AttackGrid is OFF and SelfGrid is ON
+    private GameState middleOfTheGame; //middle of the game AttackGrid is ON and SelfGrid is OFF
+    private GameState endOfTheGame; // end the game when one of the player win
     private GameState state;
+    private boolean takeTurnAttack; // make sure each player can only attack ONCE
 
-    private PlayerData player1Data = new PlayerData();
-    private PlayerData player2Data = new PlayerData();
+    private PlayerData player1Data;
+    private PlayerData player2Data;
     private PlayerScreen player1 ;
     private PlayerScreen player2;
 
     private BattleShip() {
         player1 = new PlayerScreen("Player1", true,this);
         player2 = new PlayerScreen("Player2", false,this);
+        player1Data = new PlayerData(player1);
+        player2Data = new PlayerData(player2);
         beginningOfTheGame = new BeginningOfTheGame(this, player1,player2);
         middleOfTheGame = new MiddleOfTheGame(this, player1,player2);
-        endOfTheGame = new EndOfTheGame(this, player1,player2);
-
-        this.state = beginningOfTheGame;
+        endOfTheGame = new EndOFTheGame(this, player1,player2);
+        this.state = beginningOfTheGame; //set the state of the game to be the beginning of the game
     }
 
     public static void main(String[] args) {
         BattleShip game = new BattleShip();
-
         game.player1Turn();
         game.player2turn();
-
-
-
     }
 
     public void player1Turn() {
@@ -42,42 +40,31 @@ public class BattleShip implements GameState {
 
     }
 
-
-    // State
     public void player2turn() {
         state.player2turn();
     }
 
-    public void setBeginningOfTheGame(GameState beginningOfTheGame) {
-        this.beginningOfTheGame = beginningOfTheGame;
-    }
-
-    public GameState getBeginningOfTheGame() {
-        return beginningOfTheGame;
-    }
-
-    public void setMiddleOfTheGame(GameState middleOfTheGame) {
-        this.middleOfTheGame = middleOfTheGame;
-    }
-
+    // method to transfer the game from beginning to middle of the game
     public GameState getMiddleOfTheGame() {
         return middleOfTheGame;
     }
 
-    public void setEndOfTheGame(GameState endOfTheGame) {
-        this.endOfTheGame = endOfTheGame;
-    }
-
+    // method to transfer the game from middle to the end of the game
     public GameState getEndOfTheGame() {
         return endOfTheGame;
     }
 
+    // method to set the state of the game to the desired state
     public void setState(GameState state) {
         this.state = state;
     }
 
-    public GameState getState() {
-        return this.state;
+    public void setTakeTurnAttack(boolean isPlayerTurn){
+        this.takeTurnAttack = isPlayerTurn;
+    }
+
+    public boolean getTakeTurnAttack() {
+        return takeTurnAttack;
     }
 
     public PlayerData getPlayer2Data() {

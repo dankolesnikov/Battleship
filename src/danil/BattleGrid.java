@@ -27,6 +27,7 @@ public abstract class BattleGrid extends JPanel {
         this.add(self);
     }
 
+    //return the cell that selected at point p
     public JPanel getComponentAt( Point p) {
         Component comp = null;
         for (Component child : self.getComponents()) {

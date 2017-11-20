@@ -20,23 +20,10 @@ public class MiddleOfTheGame implements GameState{
     public void player1Turn (){
         player1.getSelfGrid().setSelfGridListener(false);
         player1.getAttackGrid().setAttackGridListener(true);
-
-        System.out.println("middle of the game player 1 ");
-        //System.out.println("if player 1 win, switch to end of the game ");
-        //if statement to switch
-        //battleShip.setState(battleShip.getEndOfTheGame());
-
     }
     public void player2turn (){
         player2.getSelfGrid().setSelfGridListener(false);
         player2.getAttackGrid().setAttackGridListener(true);
-        System.out.println("middle of the game player 2 ");
-        //System.out.println("if player 2 win, switch to end of the game ");
-        //if statement to switch
-        //battleShip.setState(battleShip.getEndOfTheGame());
-
-
-
     }
 
 
